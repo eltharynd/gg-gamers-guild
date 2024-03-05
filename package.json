@@ -19,7 +19,10 @@
     "node": ">=20.11.0"
   },
   "dependencies": {
-    "authpal": "^1.5.7",
+    "@angular/material": "^17.2.1",
+    "@fortawesome/angular-fontawesome": "^0.14.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "authpal": "^1.5.8",
     "bcrypt": "^5.1.1",
     "capitalize": "^2.0.4",
     "chalk": "^4.0.0",

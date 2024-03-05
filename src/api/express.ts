@@ -16,18 +16,8 @@ import { UploadsController } from './uploads/uploads.controller'
 import { UsersController } from './users/users.controller'
 
 export const origins = environment.PRODUCTION
-  ? [
-      `https://${environment.DOMAIN}`,
-      `https://${environment.DOMAIN.replace('-backend.apps', '.apps')}`,
-    ]
-  : [
-      'http://localhost:3000',
-      `https://${environment.DOMAIN}`,
-      `https://${environment.DOMAIN.replace(
-        '-backend-staging.apps',
-        '-staging.apps'
-      )}`,
-    ]
+  ? [`https://${environment.DOMAIN}`]
+  : ['http://localhost:4200', `https://${environment.DOMAIN}`]
 
 export const app: express.Express = createExpressServer({
   cors: {

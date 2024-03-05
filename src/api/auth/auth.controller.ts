@@ -19,6 +19,7 @@ import environment from '../../environment'
 import { Mongo } from '../../mongo'
 import {
   CONFLICT,
+  FORBIDDEN,
   INTERNAL_SERVER_ERROR,
   UNAUTHORIZED,
 } from '../interceptors/default.interceptor'
@@ -98,8 +99,11 @@ export class AuthController {
     @Req() req: Request,
     @Res() res: Response,
     next: NextFunction,
-    @Body() body: AuthLoginRequest
+    @Body() body: AuthLoginRequest,
+    @CookieParams() cookies,
+    @CookieParam('refresh_token') refresh_token: string
   ) {
+    req.cookies = { refresh_token: cookies }
     return new Promise(async (resolve, reject) => {
       authpal.loginMiddleWare(
         req,
@@ -148,7 +152,14 @@ export class AuthController {
   }
 
   @Get(`/logout`)
-  async logout(@Req() req: Request, @Res() res: Response, next: NextFunction) {
+  async logout(
+    @Req() req: Request,
+    @Res() res: Response,
+    next: NextFunction,
+    @CookieParams() cookies,
+    @CookieParam('refresh_token') refresh_token: string
+  ) {
+    req.cookies = { refresh_token: cookies }
     return new Promise(async (resolve, reject) => {
       authpal.logoutMiddleware(
         req,
@@ -156,6 +167,8 @@ export class AuthController {
         next,
         async function (httpCode: number) {
           switch (httpCode) {
+            case 403:
+              reject(new FORBIDDEN())
             case 401:
             default:
               reject(new UNAUTHORIZED())
