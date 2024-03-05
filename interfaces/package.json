@@ -1,0 +1,36 @@
+{
+  "name": "gg-gamers-guild-interfaces",
+  "version": "1.0.0",
+  "publishConfig": {
+    "@klab:registry": "https://gitlab.com/api/v4/projects/55236957/packages/npm/"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "deploy": "npm version patch && npm publish --tag latest",
+    "deploy:minor": "npm version minor && npm publish --tag latest",
+    "deploy:major": "npm version major && npm publish --tag latest"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./requests": "./dist/requests.js",
+    "./responses": "./dist/responses.js"
+  },
+  "files": [
+    "**/*.js",
+    "**/*.d.ts"
+  ],
+  "author": "eltharynd",
+  "license": "ISC",
+  "devDependencies": {
+    "@langchain/core": "^0.1.32",
+    "@types/node": "^18.7.9",
+    "mongoose": "^8.2.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "class-validator": "^0.14.1",
+    "reflect-metadata": "^0.2.1"
+  }
+}
