@@ -1,4 +1,4 @@
-# Node TS Backend BOilerplate
+# GG Gamer's Guild - Booking website
 
 This repo contains a boilerplate backend with Nodejs and Express in Typescript.
 It is currently intended for development/staging only.
