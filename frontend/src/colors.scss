@@ -1,0 +1,149 @@
+@use 'sass:map' as map;
+
+$black-87-opacity: rgba(0, 0, 0, 0.87);
+
+//https://m2.material.io/design/color/the-color-system.html#tools-for-picking-colors
+$gg-cyan: (
+  50: #e7f5fe,
+  100: #c4e6fe,
+  200: #a1d8ff,
+  300: #7dc8ff,
+  400: #5fbbff,
+  500: #48afff,
+  600: #41a0f6,
+  700: #398de2,
+  800: #327cd1,
+  900: #255eb3,
+  A100: #c8cbff,
+  A200: #a1a9ff,
+  A400: #606beb,
+  A700: #3a3bc6,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: white,
+  ),
+);
+
+$gg-purple: (
+  50: #f2e4f5,
+  100: #debbe6,
+  200: #c98ed7,
+  300: #b361c7,
+  400: #a33dbb,
+  500: #9315af,
+  600: #8514a9,
+  700: #7210a2,
+  800: #600c9a,
+  900: #3d078d,
+  A100: #e2bbe0,
+  A200: #d08dcb,
+  A400: #ad3ca8,
+  A700: #80078d,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: white,
+  ),
+);
+
+$gg-pink: (
+  50: #ffedf0,
+  100: #ffd2d7,
+  200: #fca3a1,
+  300: #f67f7c,
+  400: #ff6259,
+  500: #ff533e,
+  600: #fb4b3f,
+  700: #e84138,
+  800: #db3b31,
+  900: #cb3025,
+  A100: #fbc6e1,
+  A200: #fca1cd,
+  A400: #ff60a5,
+  A700: #d84286,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: white,
+  ),
+);
+
+$gg-yellow: (
+  50: #fefde8,
+  100: #fef9c7,
+  200: #fdf5a2,
+  300: #fcf17c,
+  400: #faec5d,
+  500: #f7e73f,
+  600: #fad93e,
+  700: #f8c135,
+  800: #f5aa2d,
+  900: #f1821d,
+  A100: #fdc8a2,
+  A200: #f4a66a,
+  A400: #e07200,
+  A700: #c25200,
+  contrast: (
+    50: $black-87-opacity,
+    100: $black-87-opacity,
+    200: $black-87-opacity,
+    300: $black-87-opacity,
+    400: $black-87-opacity,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: $black-87-opacity,
+    A200: $black-87-opacity,
+    A400: $black-87-opacity,
+    A700: white,
+  ),
+);
+
+:root {
+  --gg-cyan: #{map.get($gg-cyan, 200)};
+  --gg-purple: #{map.get($gg-purple, 900)};
+  --gg-pink: #{map.get($gg-pink, 200)};
+  --gg-yellow: #{map.get($gg-yellow, 200)};
+
+  --gg-link: #{map.get($gg-purple, 600)};
+  --gg-background: #{map.get($gg-cyan, 50)};
+
+  --gg-footer: #{map.get($gg-purple, 900)};
+  --gg-footer-text: #{map.get($gg-purple, contrast, 900)};
+}

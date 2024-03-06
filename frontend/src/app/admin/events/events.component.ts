@@ -11,11 +11,13 @@ import { Event } from 'gg-gamers-guild-interfaces'
 import { debounceTime } from 'rxjs'
 import { DataService } from '../../shared/services/data.service'
 import { UtilsService } from '../../shared/services/utils.service'
+import { POPIN } from '../../shared/ui/animations'
 
 @Component({
   selector: 'app-events',
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss',
+  animations: [POPIN],
 })
 export class EventsComponent {
   events: Event[]

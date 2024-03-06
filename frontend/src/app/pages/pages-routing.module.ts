@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { LayoutComponent } from '../shared/components/layout/layout.component'
+import { AboutComponent } from './about/about.component'
 import { EventsComponent } from './events/events.component'
 import { HomeComponent } from './home/home.component'
-import { PagesLayoutComponent } from './layout/layout.component'
 
 const routes: Routes = [
   {
     path: '',
-    component: PagesLayoutComponent,
+    component: LayoutComponent,
     children: [
       { path: '', component: HomeComponent },
+      { path: 'about', component: AboutComponent },
       { path: 'events', component: EventsComponent },
     ],
   },

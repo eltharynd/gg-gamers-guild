@@ -1,5 +1,6 @@
 import { Component } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { Router } from '@angular/router'
 import { AuthGuard } from '../../shared/guards/auth.guard'
 
 @Component({
@@ -13,11 +14,14 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required]),
   })
 
-  constructor(public auth: AuthGuard) {}
+  constructor(public auth: AuthGuard, private router: Router) {}
 
   async loginSubmit() {
     if (!this.formGroup.valid) return
 
-    await this.auth.login(this.formGroup.getRawValue())
+    this.auth.login(this.formGroup.getRawValue()).then(() => {
+      if (this.auth.authenticatedUser.admin) this.router.navigate(['/admin'])
+      else this.router.navigate(['/'])
+    })
   }
 }

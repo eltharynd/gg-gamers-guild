@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { FooterComponent } from './components/footer/footer.component'
 import { HeaderComponent } from './components/header/header.component'
+import { LayoutComponent } from './components/layout/layout.component'
 import { NotFoundComponent } from './components/not-found/not-found.component'
 import { ToFormArrayPipe } from './pipes/formarray.pipe'
 import { FormControlErrorsPipe } from './pipes/formcontrol-error.pipe'
@@ -23,6 +24,7 @@ const imports: any[] = [
 const declarations: any[] = [
   FooterComponent,
   HeaderComponent,
+  LayoutComponent,
   NotFoundComponent,
 ]
 

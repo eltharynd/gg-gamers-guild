@@ -1,10 +1,26 @@
 <header>
-  <div>GG Gamer's Guild</div>
-  <div class="spacer"></div>
+  <div class="logo" routerLink="/">
+    <div @fromLeft>BOARD</div>
 
-  <div><a routerLink="/">Home</a></div>
-  <div><a routerLink="/events">Events</a></div>
+    <div @fromRight>GAMES</div>
+    <div @shrink class="image"></div>
+  </div>
+  <div class="nav" @popIn>
+    <div><a routerLink="/events">EVENTI</a></div>
+    <div>·</div>
+    <div><a routerLink="/about">CHI SIAMO</a></div>
+    <div>·</div>
 
-  <div class="spacer"></div>
-  <div><a routerLink="/admin">Admin Dashboard</a></div>
+    <div *ngIf="auth.authenticatedUser?.admin">
+      <a routerLink="/admin">ADMIN</a>
+    </div>
+    <div *ngIf="auth.authenticatedUser?.admin">·</div>
+
+    <div *ngIf="!auth.authenticatedUser">
+      <a routerLink="/auth/login">LOGIN</a>
+    </div>
+    <div *ngIf="auth.authenticatedUser">
+      <a [routerLink]="null" (click)="auth.logout()">LOGOUT</a>
+    </div>
+  </div>
 </header>

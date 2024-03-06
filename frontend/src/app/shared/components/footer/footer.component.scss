@@ -1,4 +1,23 @@
 footer {
-  background-color: darkslateblue;
-  padding: 1rem;
+  display: flex;
+  gap: 4rem;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 2rem;
+
+  background-color: var(--gg-footer);
+  color: var(--gg-footer-text);
+
+  .copyright {
+    font-weight: bold;
+    text-align: right;
+    .name {
+      white-space: nowrap;
+    }
+    .year {
+      font-weight: normal;
+      font-size: 0.8em;
+    }
+  }
 }
