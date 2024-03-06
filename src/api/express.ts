@@ -56,20 +56,9 @@ app.use(
   })
 )
 
-/* app.use('/', (req, res) => {
-  let base = path.join(
-    process.cwd(),
-    `frontend${path.sep}dist${path.sep}frontend${path.sep}browser`
-  )
-  res.sendFile(path.join(base, `${path.sep}index.html`))
-}) */
 app.use('*', (req, res) => {
-  let base = path.join(
-    process.cwd(),
-    `frontend${path.sep}dist${path.sep}frontend${path.sep}browser`
-  )
+  let base = path.join(process.cwd(), `static${path.sep}browser`)
   let proxied = path.join(base, req.originalUrl.replace(/\//i, path.sep))
-  console.log(req.originalUrl, proxied, fs.existsSync(proxied))
   if (!/\/$/i.test(req.originalUrl) && fs.existsSync(proxied)) {
     res.sendFile(proxied)
   } else res.sendFile(path.join(base, `${path.sep}index.html`))
