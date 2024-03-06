@@ -44,12 +44,16 @@ export class AuthGuard implements CanActivate {
       if (!changes.authenticated) {
         this.authenticatedUser = null
 
-        let currentRouteConfig = this.router.config.find(
-          (f) => f.path === this.router.url.substr(1)
-        )
-        if (/AuthGuard/i.test(currentRouteConfig?.canActivate[0]?.name)) {
-          this.router.navigate([''])
+        let currentRoute = this.router.routerState.root
+        while (currentRoute.firstChild) {
+          currentRoute = currentRoute.firstChild
         }
+        if (currentRoute.routeConfig?.canActivate)
+          if (
+            /AuthGuard/i.test(currentRoute.routeConfig?.canActivate[0]?.name)
+          ) {
+            this.router.navigate([''])
+          }
       }
     })
 
