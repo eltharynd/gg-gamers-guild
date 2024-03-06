@@ -45,11 +45,11 @@ export class Table {
 export class Round {
   @IsString()
   @IsNotEmpty()
-  @Matches(/^[0-2][0-9]\:[0-9][0-9]$/)
+  @Matches(/^[0-2][0-9]:[0-9][0-9]$/)
   start: string
   @IsString()
   @IsNotEmpty()
-  @Matches(/^[0-2][0-9]\:[0-9][0-9]$/)
+  @Matches(/^[0-2][0-9]:[0-9][0-9]$/)
   end: string
 
   @ValidateNested()
