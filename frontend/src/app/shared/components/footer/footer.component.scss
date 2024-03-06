@@ -9,6 +9,8 @@ footer {
   background-color: var(--gg-footer);
   color: var(--gg-footer-text);
 
+  user-select: none;
+
   .copyright {
     font-weight: bold;
     text-align: right;

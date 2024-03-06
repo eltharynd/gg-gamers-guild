@@ -151,6 +151,7 @@ $gg-yellow: (
   --gg-footer: #{map.get($gg-purple, 800)};
   --gg-footer-text: #{map.get($gg-purple, contrast, 900)};
 
+  --gg-drop-shadow-smaller: drop-shadow(1px 1px 3px #3d078d80);
   --gg-drop-shadow-small: drop-shadow(1px 1px 4px #3d078dc0);
-  --gg-drop-shadow: drop-shadow(1px 1px 8px #3d078dfa);
+  --gg-drop-shadow: drop-shadow(1px 1px 8px #3d078d);
 }
