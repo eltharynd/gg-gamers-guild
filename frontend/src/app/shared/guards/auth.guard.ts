@@ -11,7 +11,7 @@ import { AuthpalClient, UserChangesEmitter } from 'authpal-client'
 import axios from 'axios'
 import { PublicUser } from 'gg-gamers-guild-interfaces'
 import { Observable, Subject } from 'rxjs'
-import environment from '../../../environments/environment'
+import { environment } from '../../../environments/environment'
 
 @Injectable({
   providedIn: 'root',

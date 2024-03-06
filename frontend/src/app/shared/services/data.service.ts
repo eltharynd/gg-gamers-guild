@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import axios, { AxiosError } from 'axios'
-import environment from '../../../environments/environment'
+import { environment } from '../../../environments/environment'
 import { AuthGuard } from '../guards/auth.guard'
 
 @Injectable({
