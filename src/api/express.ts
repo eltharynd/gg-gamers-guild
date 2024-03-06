@@ -8,6 +8,7 @@ import environment from '../environment'
 import { MongoInterceptor } from '../mongo'
 import Logger from '../util/logger'
 import { AuthController } from './auth/auth.controller'
+import { EventsController } from './events/events.controller'
 import { DefaultInterceptor } from './interceptors/default.interceptor'
 import { HttpErrorHandler } from './middlewares/error.middleware'
 import { LoggerMiddleware } from './middlewares/logger.middleware'
@@ -28,7 +29,12 @@ export const app: express.Express = createExpressServer({
   routePrefix: environment.API_BASE.replace(/\/$/, ''),
   defaultErrorHandler: false,
   middlewares: [LoggerMiddleware, HttpErrorHandler],
-  controllers: [AuthController, UploadsController, UsersController],
+  controllers: [
+    AuthController,
+    EventsController,
+    UploadsController,
+    UsersController,
+  ],
   interceptors: [DefaultInterceptor, MongoInterceptor],
   validation: { whitelist: true },
   classToPlainTransformOptions: {

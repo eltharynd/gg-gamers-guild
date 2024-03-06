@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core'
 import { AbstractControl, FormControl } from '@angular/forms'
 
 @Pipe({
-  name: 'forrmControlError',
+  name: 'formControlError',
   pure: false,
 })
 export class FormControlErrorsPipe implements PipeTransform {
@@ -10,19 +10,25 @@ export class FormControlErrorsPipe implements PipeTransform {
     if (formControl.status === 'VALID') return null
 
     if (formControl.errors['required']) {
-      return 'Required'
+      return 'Obbligatorio'
     } else if (formControl.errors['email']) {
-      return 'Not a valid email'
+      return "Non è un'email valida"
     } else if (formControl.errors['maxlength']) {
-      return `Too long ${formControl.errors['maxlength'].actualLength}/${formControl.errors['maxlength'].requiredLength}`
+      return `Troppo lungo ${formControl.errors['maxlength'].actualLength}/${formControl.errors['maxlength'].requiredLength}`
     } else if (formControl.errors['minlength']) {
-      return `Too short ${formControl.errors['minlength'].actualLength}/${formControl.errors['minlength'].requiredLength}`
+      return `Troppo corto ${formControl.errors['minlength'].actualLength}/${formControl.errors['minlength'].requiredLength}`
     } else if (formControl.errors['pattern']) {
-      return `Invalid pattern`
+      return `Pattern incorretto`
     } else if (formControl.errors['notAdult']) {
-      return `You have to be over 18 years old`
+      return `Devi essere maggiorenne`
+    } else if (formControl.errors['time']) {
+      return `Devi inserire un orario valido (es: '12:15')`
+    } else if (formControl.errors['emptyArray']) {
+      return `Devi ancora inserire dei campi`
+    } else if (formControl.errors['notInFuture']) {
+      return `La data deve essere nel futuro`
     } else {
-      return 'Invalid field'
+      return 'Campo non valido'
     }
   }
 }

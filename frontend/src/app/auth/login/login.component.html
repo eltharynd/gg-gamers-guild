@@ -1,4 +1,4 @@
-<mat-card *ngIf="!auth.authenticatedUser">
+<mat-card *ngIf="!auth.authenticatedUser" class="medium">
   <mat-card-header>
     <mat-card-title> Login </mat-card-title>
     <mat-card-subtitle>
@@ -10,14 +10,16 @@
       <mat-form-field appearance="outline">
         <mat-label>email</mat-label>
         <input matInput type="email" formControlName="email" />
-        <mat-error>{{ formGroup.get('email') | forrmControlError }}</mat-error>
+        <mat-error>
+          {{ formGroup.get('email') | formControlError }}
+        </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>password</mat-label>
         <input matInput type="password" formControlName="password" />
-        <mat-error>{{
-          formGroup.get('password') | forrmControlError
-        }}</mat-error>
+        <mat-error>
+          {{ formGroup.get('password') | formControlError }}
+        </mat-error>
       </mat-form-field>
     </form>
   </mat-card-content>
@@ -33,7 +35,7 @@
   </mat-card-actions>
 </mat-card>
 
-<mat-card *ngIf="auth.authenticatedUser">
+<mat-card *ngIf="auth.authenticatedUser" class="medium">
   <mat-card-header>
     <mat-card-title> Logout </mat-card-title>
   </mat-card-header>

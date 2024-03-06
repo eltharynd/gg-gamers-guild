@@ -1,4 +1,10 @@
-import { Adventurer, Party, Table } from 'gg-gamers-guild-interfaces'
+import {
+  Adventurer,
+  Event,
+  Party,
+  Round,
+  Table,
+} from 'gg-gamers-guild-interfaces'
 import mongoose, { Document, Schema } from 'mongoose'
 
 const adventurerSchema: Schema<Adventurer> = new Schema(
@@ -51,20 +57,15 @@ const tableSchema: Schema<Table> = new Schema(
 )
 export interface TableModel extends Table, Document {}
 
-const eventSchema: Schema = new Schema(
+const roundSchema: Schema<Round> = new Schema(
   {
-    title: {
+    start: {
       type: String,
       required: true,
     },
-    description: {
+    end: {
       type: String,
       required: true,
-    },
-    date: {
-      type: Date,
-      required: true,
-      default: Date.now,
     },
     tables: {
       type: [tableSchema],
@@ -78,10 +79,47 @@ const eventSchema: Schema = new Schema(
     },
   },
   {
+    _id: false,
+  }
+)
+export interface RoundModel extends Round, Document {}
+
+const eventSchema: Schema = new Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+
+    location: {
+      type: String,
+      required: true,
+    },
+    address: {
+      type: String,
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+      default: Date.now,
+    },
+
+    rounds: {
+      type: [roundSchema],
+      required: true,
+      default: [],
+    },
+  },
+  {
     versionKey: false,
     timestamps: true,
   }
 )
 
-export interface EventModel extends Event, Document {}
+export interface EventModel extends Omit<Event, '_id'>, Document {}
 export const Events = mongoose.model<EventModel>('events', eventSchema)

@@ -1,0 +1,12 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  background-color: dimgray;
+  padding: 1rem;
+}
+
+.spacer {
+  flex-grow: 1;
+}

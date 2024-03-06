@@ -8,11 +8,17 @@ import { routingControllersToSpec } from 'routing-controllers-openapi'
 import environment from '../environment'
 import { AuthController } from './auth/auth.controller'
 
+import { EventsController } from './events/events.controller'
 import { UploadsController } from './uploads/uploads.controller'
 import { UsersController } from './users/users.controller'
 
 const routingControllersOptions: RoutingControllersOptions = {
-  controllers: [AuthController, UploadsController, UsersController],
+  controllers: [
+    AuthController,
+    EventsController,
+    UploadsController,
+    UsersController,
+  ],
   routePrefix: environment.API_BASE.replace(/\/$/, ''),
 }
 const schemas = validationMetadatasToSchemas({

@@ -1,1 +1,265 @@
-<p>events works!</p>
+<mat-accordion class="medium">
+  <mat-expansion-panel #expansionPanel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Crea un nuovo evento </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <form [formGroup]="formGroup">
+      <strong>Descrizione:</strong>
+      <mat-form-field appearance="outline">
+        <mat-label>Titolo</mat-label>
+        <input matInput type="text" formControlName="title" />
+        <mat-error>
+          {{ formGroup.get('title') | formControlError }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Descrizione</mat-label>
+        <textarea
+          matInput
+          type="text"
+          formControlName="description"
+          rows="10"
+        ></textarea>
+        <mat-error>
+          {{ formGroup.get('description') | formControlError }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+          [min]="today"
+        />
+        <mat-datepicker-toggle
+          matIconSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-error>
+          {{ formGroup.get('date') | formControlError }}
+        </mat-error>
+      </mat-form-field>
+
+      <div class="row ratio25-75">
+        <mat-form-field appearance="outline">
+          <mat-label>Luogo</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="location"
+            placeholder="Spazio L'ove"
+          />
+          <mat-error>
+            {{ formGroup.get('location') | formControlError }}
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Indirizzo</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="address"
+            placeholder="Via Luganetto 1, 6962 Viganello"
+          />
+          <mat-error>
+            {{ formGroup.get('address') | formControlError }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div
+        *ngIf="(formGroup.get('rounds') | toFormArray).value.length < 1"
+        class="round"
+      >
+        Non ci sono ancora rounds in questo evento...
+      </div>
+      <div
+        *ngFor="
+          let round of (formGroup.get('rounds') | toFormArray).controls;
+          let r = index
+        "
+        class="round box-shadow"
+        [formGroup]="round | toFormGroup"
+      >
+        <span class="title">{{ r + 1 }}° Round</span>
+        <div class="row">
+          <mat-form-field appearance="outline">
+            <mat-label>Inizio</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="start"
+              placeholder="12:00"
+            />
+            <mat-error>
+              {{ round.get('start') | formControlError }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Fine</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="end"
+              placeholder="14:00"
+            />
+            <mat-error>
+              {{ round.get('end') | formControlError }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div
+          *ngIf="(round.get('tables') | toFormArray).value.length < 1"
+          class="table"
+        >
+          Non ci sono ancora tavoli in questo round...
+        </div>
+        <div
+          *ngFor="
+            let table of (round.get('tables') | toFormArray).controls;
+            let t = index
+          "
+          class="table"
+          [formGroup]="table | toFormGroup"
+        >
+          <span class="title">Tavolo {{ t + 1 }}</span>
+          <mat-form-field appearance="outline">
+            <mat-label>Posti max</mat-label>
+            <input matInput type="number" formControlName="maximumSeats" />
+            <mat-error>
+              {{ table.get('maximumSeats') | formControlError }}
+            </mat-error>
+          </mat-form-field>
+          <div>
+            <strong>OPZIONALI:</strong>
+            <br />
+            Il sistema cercherà di assegnare i giocatori puntando al numero di
+            posti ideali
+            <br />
+            e riempirà i tavoli assicurandosi di rispettare i posti minimi.
+          </div>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Posti ideali</mat-label>
+              <input matInput type="number" formControlName="optimalSeats" />
+              <mat-error>
+                {{ table.get('optimalSeats') | formControlError }}
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Posti minimi</mat-label>
+              <input matInput type="number" formControlName="minimumSeats" />
+              <mat-error>
+                {{ table.get('minimumSeats') | formControlError }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="row end">
+            <button
+              mat-raised-button
+              class="remove"
+              (click)="removeTable(round, table)"
+              color="warn"
+            >
+              Elimina Tavolo {{ t + 1 }}
+            </button>
+          </div>
+        </div>
+        <div class="row end">
+          <button
+            mat-raised-button
+            class="remove"
+            (click)="removeRound(round)"
+            color="warn"
+          >
+            Elimina {{ r + 1 }}° Round
+          </button>
+          <button mat-raised-button (click)="addTable(round)" color="primary">
+            Aggiungi un nuovo tavolo
+          </button>
+        </div>
+      </div>
+
+      <div class="row end">
+        <button mat-raised-button (click)="addRound()" color="primary">
+          Aggiungi un nuovo round
+        </button>
+      </div>
+      <button
+        mat-raised-button
+        (click)="save()"
+        [disabled]="data.busy || !formGroup.valid"
+        color="primary"
+      >
+        CREA
+      </button>
+    </form>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-card class="medium">
+  <mat-card-header>
+    <mat-card-title *ngIf="events?.length > 0">
+      Eventi programmati
+    </mat-card-title>
+    <mat-card-title *ngIf="events?.length === 0">
+      Nessun evento in programma
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="events?.length > 0">
+      Qui sotto trovi gli eventi programmati
+    </mat-card-subtitle>
+    <mat-card-subtitle *ngIf="events?.length === 0">
+      Crea un nuovo evento dal pannello qui sopra per farlo
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card *ngFor="let event of events" class="event">
+      <mat-card-header>
+        <mat-card-title>{{ event.title }}</mat-card-title>
+        <mat-card-subtitle>{{ event.date | date }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content class="event">
+        <div class="description">{{ event.description }}</div>
+        <div class="round" *ngFor="let round of event.rounds; let r = index">
+          <div>{{ r + 1 }}° Round</div>
+          <div class="table" *ngFor="let table of round.tables; let t = index">
+            <div>Table {{ t + 1 }}</div>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-footer>
+        <div class="row end">
+          <button
+            mat-raised-button
+            (click)="deleteEvent(event)"
+            color="warn"
+            [disabled]="data.busy"
+          >
+            Cancella Evento
+          </button>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </mat-card-content>
+</mat-card>
+
+<mat-card class="medium">
+  <mat-card-header>
+    <mat-card-title *ngIf="past?.length > 0"> Eventi passati </mat-card-title>
+    <mat-card-title *ngIf="past?.length === 0">
+      Nessun evento passato registrato
+    </mat-card-title>
+    <mat-card-subtitle *ngIf="past?.length > 0">
+      Qui sotto trovi gli eventi passati
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card *ngFor="let e of past"> </mat-card>
+  </mat-card-content>
+</mat-card>
