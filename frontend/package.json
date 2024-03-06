@@ -1,7 +1,9 @@
 {
   "name": "gg-gamers-guild-frontend",
   "version": "0.0.0",
-  "scripts": {},
+  "scripts": {
+    "build": "ng serve"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.2.0",
