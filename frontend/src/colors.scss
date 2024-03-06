@@ -6,18 +6,19 @@ $black-87-opacity: rgba(0, 0, 0, 0.87);
 $gg-cyan: (
   50: #e7f5fe,
   100: #c4e6fe,
-  200: #a1d8ff,
-  300: #7dc8ff,
-  400: #5fbbff,
-  500: #48afff,
-  600: #41a0f6,
-  700: #398de2,
-  800: #327cd1,
-  900: #255eb3,
-  A100: #c8cbff,
-  A200: #a1a9ff,
-  A400: #606beb,
-  A700: #3a3bc6,
+  //P
+  200: #a0d7fe,
+  300: #7bc7fe,
+  400: #5db9ff,
+  500: #45adff,
+  600: #3f9ff4,
+  700: #368ce1,
+  800: #307bcf,
+  900: #235cb1,
+  A100: #a0fef6,
+  A200: #62fbf2,
+  A400: #00efeb,
+  A700: #00c1bd,
   contrast: (
     50: $black-87-opacity,
     100: $black-87-opacity,
@@ -37,20 +38,21 @@ $gg-cyan: (
 );
 
 $gg-purple: (
-  50: #f2e4f5,
-  100: #debbe6,
-  200: #c98ed7,
-  300: #b361c7,
-  400: #a33dbb,
-  500: #9315af,
-  600: #8514a9,
-  700: #7210a2,
-  800: #600c9a,
-  900: #3d078d,
-  A100: #e2bbe0,
-  A200: #d08dcb,
-  A400: #ad3ca8,
-  A700: #80078d,
+  50: #ede6f8,
+  100: #d0c1ee,
+  200: #b298e3,
+  300: #926ed9,
+  400: #7a4dd0,
+  500: #5f2cc7,
+  600: #5528c1,
+  700: #451fb9,
+  //P
+  800: #3519b2,
+  900: #0d09a7,
+  A100: #bce0ff,
+  A200: #91cdff,
+  A400: #3faaff,
+  A700: #1d7ae3,
   contrast: (
     50: $black-87-opacity,
     100: $black-87-opacity,
@@ -71,19 +73,20 @@ $gg-purple: (
 
 $gg-pink: (
   50: #ffedf0,
-  100: #ffd2d7,
-  200: #fca3a1,
-  300: #f67f7c,
-  400: #ff6259,
-  500: #ff533e,
-  600: #fb4b3f,
-  700: #e84138,
-  800: #db3b31,
-  900: #cb3025,
-  A100: #fbc6e1,
-  A200: #fca1cd,
-  A400: #ff60a5,
-  A700: #d84286,
+  100: #ffd1d6,
+  //P
+  200: #fea0a0,
+  300: #f87b7b,
+  400: #ff5c58,
+  500: #ff4d3d,
+  600: #fc453e,
+  700: #e93a37,
+  800: #dc3330,
+  900: #cd2824,
+  A100: #fdc5e2,
+  A200: #fea0cf,
+  A400: #ff5ea8,
+  A700: #db3f88,
   contrast: (
     50: $black-87-opacity,
     100: $black-87-opacity,
@@ -103,20 +106,21 @@ $gg-pink: (
 );
 
 $gg-yellow: (
-  50: #fefde8,
-  100: #fef9c7,
-  200: #fdf5a2,
-  300: #fcf17c,
-  400: #faec5d,
-  500: #f7e73f,
-  600: #fad93e,
-  700: #f8c135,
-  800: #f5aa2d,
-  900: #f1821d,
-  A100: #fdc8a2,
-  A200: #f4a66a,
-  A400: #e07200,
-  A700: #c25200,
+  50: #fffde8,
+  100: #fef9c6,
+  //P
+  200: #fef5a1,
+  300: #fdf07b,
+  400: #fbeb5c,
+  500: #f9e63e,
+  600: #fbd83d,
+  700: #f9c035,
+  800: #f6a82c,
+  900: #f2801e,
+  A100: #fec6a1,
+  A200: #f5a369,
+  A400: #e16d00,
+  A700: #c34d00,
   contrast: (
     50: $black-87-opacity,
     100: $black-87-opacity,
@@ -144,6 +148,9 @@ $gg-yellow: (
   --gg-link: #{map.get($gg-purple, 600)};
   --gg-background: #{map.get($gg-cyan, 50)};
 
-  --gg-footer: #{map.get($gg-purple, 900)};
+  --gg-footer: #{map.get($gg-purple, 800)};
   --gg-footer-text: #{map.get($gg-purple, contrast, 900)};
+
+  --gg-drop-shadow-small: drop-shadow(1px 1px 4px #3d078dc0);
+  --gg-drop-shadow: drop-shadow(1px 1px 8px #3d078dfa);
 }

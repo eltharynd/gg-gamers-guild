@@ -3,6 +3,8 @@ header {
   flex-direction: column;
   justify-content: space-between;
 
+  cursor: pointer;
+
   gap: 1rem;
   padding: 1rem;
   @media only screen and (max-width: 600px) {
@@ -22,6 +24,7 @@ header {
 
     > div {
       flex-grow: 1;
+      filter: var(--gg-drop-shadow-small);
       &:nth-child(1) {
         text-align: right;
       }
@@ -43,7 +46,8 @@ header {
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-      //background-color: red;
+
+      filter: var(--gg-drop-shadow);
     }
 
     @media only screen and (max-width: 600px) {
