@@ -61,6 +61,10 @@ body {
   overflow-y: scroll;
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
 a {
   cursor: pointer;
   text-decoration: none;
