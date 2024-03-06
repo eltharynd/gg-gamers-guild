@@ -136,14 +136,6 @@
               {{ table.get('maximumSeats') | formControlError }}
             </mat-error>
           </mat-form-field>
-          <div>
-            <strong>OPZIONALI:</strong>
-            <br />
-            Il sistema cercherà di assegnare i giocatori puntando al numero di
-            posti ideali
-            <br />
-            e riempirà i tavoli assicurandosi di rispettare i posti minimi.
-          </div>
           <div class="row">
             <mat-form-field appearance="outline">
               <mat-label>Posti ideali</mat-label>
@@ -167,7 +159,7 @@
               (click)="removeTable(round, table)"
               color="warn"
             >
-              Elimina Tavolo {{ t + 1 }}
+              Elimina
             </button>
           </div>
         </div>
@@ -178,17 +170,17 @@
             (click)="removeRound(round)"
             color="warn"
           >
-            Elimina {{ r + 1 }}° Round
+            Elimina
           </button>
           <button mat-raised-button (click)="addTable(round)" color="primary">
-            Aggiungi un nuovo tavolo
+            Aggiungi
           </button>
         </div>
       </div>
 
       <div class="row end">
         <button mat-raised-button (click)="addRound()" color="primary">
-          Aggiungi un nuovo round
+          Aggiungi round
         </button>
       </div>
       <button

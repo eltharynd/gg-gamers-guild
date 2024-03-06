@@ -67,9 +67,9 @@ export class EventsComponent {
   }
   createTable = () => {
     return new FormGroup({
-      minimumSeats: new FormControl(0),
-      optimalSeats: new FormControl(0),
-      maximumSeats: new FormControl(0, [
+      minimumSeats: new FormControl(),
+      optimalSeats: new FormControl(),
+      maximumSeats: new FormControl(null, [
         Validators.required,
         Validators.min(1),
       ]),
@@ -86,16 +86,30 @@ export class EventsComponent {
     this.past = events.filter((e) => {
       return new Date(e.date).getTime() < this.today
     })
-    console.log(this.events, this.past)
-    setTimeout(() => {
-      console.log('accordion')
-      this.expansionPanel.close()
-    }, 1000)
   }
 
   addRound() {
     let formArray: FormArray = this.formGroup.get('rounds') as FormArray
-    formArray.push(this.createRound())
+    let round = this.createRound()
+    if (formArray.length > 0) {
+      let previous = formArray.value.at(-1)
+
+      Object.keys(previous).forEach((k) => {
+        if (k === 'tables') {
+          let tables: FormArray = new FormArray([], [this.utils.arrayValidator])
+          previous[k].forEach((t) => {
+            let table = this.createTable()
+            Object.keys(t).forEach((kk) => {
+              table.get(kk).setValue(t[kk])
+            })
+            tables.push(table)
+          })
+          round.setControl(k, tables)
+        } else round.get(k).setValue(previous[k])
+      })
+    } else {
+    }
+    formArray.push(round)
   }
 
   removeRound(round: AbstractControl) {
@@ -106,7 +120,14 @@ export class EventsComponent {
 
   addTable(round: AbstractControl) {
     let formArray: FormArray = (round as FormGroup).get('tables') as FormArray
-    formArray.push(this.createTable())
+    let table = this.createTable()
+    if (formArray.length > 0) {
+      let previous = formArray.value.at(-1)
+      Object.keys(previous).forEach((k) => {
+        table.get(k).setValue(previous[k])
+      })
+    }
+    formArray.push(table)
   }
 
   removeTable(round: AbstractControl, table: AbstractControl) {

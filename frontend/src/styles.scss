@@ -84,6 +84,12 @@ mat-accordion.medium > mat-expansion-panel {
   }
 }
 
+@media only screen and (max-width: 600px) {
+  .mat-expansion-panel-body {
+    padding: 0 1rem 1rem !important;
+  }
+}
+
 mat-card-content > form,
 mat-expansion-panel
   > .mat-expansion-panel-content
