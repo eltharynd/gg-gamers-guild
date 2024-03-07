@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import {
   ActivatedRoute,
   ActivatedRouteSnapshot,
-  CanActivate,
+  CanActivateChild,
   Router,
   RouterStateSnapshot,
   UrlTree,
@@ -16,7 +16,7 @@ import { environment } from '../../../environments/environment'
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivateChild {
   busy: boolean = false
 
   private authPalClient: AuthpalClient
@@ -47,13 +47,22 @@ export class AuthGuard implements CanActivate {
         let currentRoute = this.router.routerState.root
         while (currentRoute.firstChild) {
           currentRoute = currentRoute.firstChild
-        }
-        if (currentRoute.routeConfig?.canActivate)
-          if (
-            /AuthGuard/i.test(currentRoute.routeConfig?.canActivate[0]?.name)
-          ) {
-            this.router.navigate([''])
+          if (currentRoute.routeConfig?.canActivate) {
+            if (
+              /AuthGuard/i.test(currentRoute.routeConfig?.canActivate[0]?.name)
+            )
+              this.router.navigate([''])
+            break
+          } else if (currentRoute.routeConfig?.canActivateChild) {
+            if (
+              /AuthGuard/i.test(
+                currentRoute.routeConfig?.canActivateChild[0]?.name
+              )
+            )
+              this.router.navigate([''])
+            break
           }
+        }
       }
     })
 
@@ -61,7 +70,7 @@ export class AuthGuard implements CanActivate {
   }
 
   private guardedRoute: string
-  canActivate(
+  canActivateChild(
     _route: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot
   ):
@@ -103,7 +112,7 @@ export class AuthGuard implements CanActivate {
     })
   }
 
-  async logout(noRedirect?: boolean) {
+  async logout() {
     this.busy = true
 
     this.authPalClient
@@ -120,7 +129,6 @@ export class AuthGuard implements CanActivate {
       })
       .finally(() => {
         this.busy = false
-        //if (!noRedirect) this.router.navigate(['/'])
       })
   }
 

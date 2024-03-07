@@ -1,22 +1,38 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
+import { LayoutComponent } from './shared/components/layout/layout.component'
 import { NotFoundComponent } from './shared/components/not-found/not-found.component'
+import { AuthGuard } from './shared/guards/auth.guard'
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () =>
-      import('./pages/pages.module').then((m) => m.PagesModule),
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/pages.module').then((m) => m.PagesModule),
+        pathMatch: 'prefix',
+      },
+      {
+        path: 'admin',
+        canActivateChild: [AuthGuard],
+        loadChildren: () =>
+          import('./admin/admin.module').then((m) => m.AdminModule),
+        pathMatch: 'prefix',
+      },
+      {
+        path: 'auth',
+        loadChildren: () =>
+          import('./auth/auth.module').then((m) => m.AuthModule),
+      },
+      {
+        path: '**',
+        component: NotFoundComponent,
+      },
+    ],
     pathMatch: 'prefix',
-  },
-  {
-    path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-    pathMatch: 'prefix',
-  },
-  {
-    path: '**',
-    component: NotFoundComponent,
   },
 ]
 
