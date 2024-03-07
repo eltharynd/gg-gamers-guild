@@ -1,10 +1,15 @@
 <header>
-  <div class="logo" routerLink="/">
-    <div @fromLeft>GAMER'S</div>
+  <div
+    class="logo"
+    routerLink="/"
+    (mouseenter)="hovering = true"
+    (mouseleave)="hovering = false"
+  >
+    <div [@fromLeft]="hovering">GAMER'S</div>
     <div>
-      <div @shrink class="image"></div>
+      <div [@shrink]="hovering" class="image"></div>
     </div>
-    <div @fromRight>GUILD</div>
+    <div [@fromRight]="hovering">GUILD</div>
   </div>
   <div class="nav" @popIn>
     <div><a routerLink="/events">EVENTI</a></div>

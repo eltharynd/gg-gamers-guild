@@ -1,4 +1,4 @@
-<mat-card *ngIf="!auth.authenticatedUser" class="medium">
+<mat-card *ngIf="!auth.authenticatedUser" class="small">
   <mat-card-header>
     <mat-card-title> Login </mat-card-title>
     <mat-card-subtitle>
@@ -33,19 +33,4 @@
       LOGIN
     </button>
   </mat-card-actions>
-</mat-card>
-
-<mat-card *ngIf="auth.authenticatedUser" class="medium">
-  <mat-card-header>
-    <mat-card-title> Logout </mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <button
-      mat-raised-button
-      (click)="auth.logout()"
-      [disabled]="!auth.authenticatedUser"
-    >
-      LOGOUT
-    </button>
-  </mat-card-content>
 </mat-card>

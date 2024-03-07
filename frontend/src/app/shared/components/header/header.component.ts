@@ -1,4 +1,4 @@
-import { animate, style, transition, trigger } from '@angular/animations'
+import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component } from '@angular/core'
 import { AuthGuard } from '../../guards/auth.guard'
 import { POPIN } from '../../ui/animations'
@@ -9,26 +9,45 @@ import { POPIN } from '../../ui/animations'
   styleUrls: ['./header.component.scss'],
   animations: [
     trigger('fromLeft', [
+      state(
+        'true',
+        style({
+          transform: 'scale(0.95)',
+          'transform-origin': 'right',
+        })
+      ),
       transition('void => *', [
         style({ opacity: 0, transform: 'translateX(-15%)' }),
-        animate('1500ms ease'),
+        animate('1250ms ease'),
       ]),
+      transition('* <=> true', [animate('500ms ease')]),
     ]),
     trigger('fromRight', [
+      state(
+        'true',
+        style({
+          transform: 'scale(0.95)',
+          'transform-origin': 'left',
+        })
+      ),
       transition('void => *', [
         style({ opacity: 0, transform: 'translateX(15%)' }),
-        animate('1500ms ease'),
+        animate('1250ms ease'),
       ]),
+      transition('* <=> true', [animate('500ms ease')]),
     ]),
     trigger('shrink', [
-      transition('void => *', [
-        style({ opacity: 0, transform: 'scale(2)' }),
-        animate('1750ms ease'),
-      ]),
+      state('void', style({ opacity: 0, transform: 'scale(2)' })),
+      state('true', style({ transform: 'scale(1.2)' })),
+      transition('void => *', [animate('1750ms ease')]),
+      transition('* <=> true', [animate('500ms ease')]),
     ]),
     POPIN,
   ],
 })
 export class HeaderComponent {
-  constructor(public auth: AuthGuard) {}
+  hovering: boolean = false
+  constructor(public auth: AuthGuard) {
+    setInterval(() => console.log(this.hovering), 1000)
+  }
 }
