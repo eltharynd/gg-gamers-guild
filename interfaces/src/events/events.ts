@@ -1,4 +1,3 @@
-import { Type } from 'class-transformer'
 import {
   IsArray,
   IsNotEmpty,
@@ -20,11 +19,11 @@ export class Adventurer {
 
 export class Party {
   @ValidateNested()
-  @Type(() => Adventurer)
+  //@Type(() => Adventurer)
   leader: Adventurer
   @ValidateNested()
   @IsArray()
-  @Type(() => Adventurer)
+  // @Type(() => Adventurer)
   partners: Adventurer[]
 }
 
@@ -53,13 +52,11 @@ export class Round {
   end: string
 
   @ValidateNested()
-  @IsArray()
-  @Type(() => Table)
+  //@Type(() => Table)
   tables: Table[]
   @IsOptional()
   @ValidateNested()
-  @IsArray()
-  @Type(() => Party)
+  //@Type(() => Party)
   parties: Party[]
 }
 

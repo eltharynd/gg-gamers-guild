@@ -12,7 +12,6 @@ import { INTERNAL_SERVER_ERROR } from '../interceptors/default.interceptor'
 @Middleware({ type: 'after' })
 export class HttpErrorHandler implements ExpressErrorMiddlewareInterface {
   error(error: any, @Req() req, @Res() res, next: NextFunction) {
-    console.log('error')
     if (res.headersSent) return next(error)
 
     if (error instanceof HttpError) {

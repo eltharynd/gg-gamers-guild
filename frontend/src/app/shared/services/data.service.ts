@@ -44,14 +44,13 @@ export class DataService {
           data: body,
         })
         .then(({ data }) => {
+          this.busy = false
           resolve(data)
         })
         .catch((e: AxiosError) => {
           console.error(e)
-          reject()
-        })
-        .finally(() => {
           this.busy = false
+          reject()
         })
     })
   }

@@ -21,7 +21,9 @@ export class EventsController {
 
   @Post(`/`)
   @UseBefore(AdminGuard)
-  async createEvent(@Body() body: CreateEventRequest) {
+  //TODO fix class-validator
+  async createEvent(@Body({ validate: false }) body: CreateEventRequest) {
+    console.log(body.rounds)
     return await Events.create(body)
   }
 

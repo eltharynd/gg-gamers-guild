@@ -13,11 +13,9 @@ export class UtilsService {
   timeCorrector = (control: FormControl) => {
     if (/^[0-2][0-9]$/.test(control.value)) {
       control.setValue(`${control.value}:00`)
-      console.log(`${control.value}:00`)
     } else if (/^[0-2][0-9][0-9][0-9]$/.test(control.value)) {
       let string: string = control.value.toString()
       control.setValue(`${string.substring(0, 2)}:${string.substring(2, 4)}`)
-      console.log(`${string.substring(0, 2)}:${string.substring(2, 4)}`)
     }
   }
 

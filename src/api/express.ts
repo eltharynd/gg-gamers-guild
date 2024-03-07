@@ -3,7 +3,6 @@ import fs from 'fs'
 import { Server, createServer } from 'http'
 import path from 'path'
 import { createExpressServer } from 'routing-controllers'
-import swaggerUIExpress from 'swagger-ui-express'
 import environment from '../environment'
 import { MongoInterceptor } from '../mongo'
 import Logger from '../util/logger'
@@ -12,7 +11,6 @@ import { EventsController } from './events/events.controller'
 import { DefaultInterceptor } from './interceptors/default.interceptor'
 import { HttpErrorHandler } from './middlewares/error.middleware'
 import { LoggerMiddleware } from './middlewares/logger.middleware'
-import { SWAGGER_SPECS } from './swagger'
 import { UploadsController } from './uploads/uploads.controller'
 import { UsersController } from './users/users.controller'
 
@@ -44,7 +42,7 @@ export const app: express.Express = createExpressServer({
 
 app.set('trust proxy', true)
 
-app.use(
+/* app.use(
   `${environment.API_BASE}docs`,
   swaggerUIExpress.serve,
   swaggerUIExpress.setup(SWAGGER_SPECS, {
@@ -54,7 +52,7 @@ app.use(
         .toString() +
       fs.readFileSync(path.join(process.cwd(), 'docs/custom.css')).toString(),
   })
-)
+) */
 
 app.use('*', (req, res, next) => {
   if (/^\/api/g.test(req.originalUrl)) return next()
