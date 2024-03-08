@@ -18,8 +18,10 @@ export class LoginComponent implements OnInit {
 
   async ngOnInit() {
     await this.auth.resumeDoneEmitter.toPromise()
-    if (this.auth.authenticatedUser) this.router.navigate(['/admin'])
-    else this.router.navigate(['/'])
+    if (this.auth.authenticatedUser) {
+      if (this.auth.authenticatedUser.admin) this.router.navigate(['/admin'])
+      else this.router.navigate(['/'])
+    }
   }
 
   async loginSubmit() {
