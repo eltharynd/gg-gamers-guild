@@ -7,7 +7,6 @@ import {
   Post,
   UseBefore,
 } from 'routing-controllers'
-import { CreateEventRequest } from '../../../interfaces/dist/events/events.requests'
 import { BAD_REQUEST } from '../interceptors/default.interceptor'
 import { AdminGuard } from '../middlewares/auth.middleware'
 import { EventModel, Events } from './events.model'
@@ -22,7 +21,7 @@ export class EventsController {
   @Post(`/`)
   @UseBefore(AdminGuard)
   //TODO fix class-validator
-  async createEvent(@Body({ validate: false }) body: CreateEventRequest) {
+  async createEvent(@Body({ validate: false }) body: any) {
     console.log(body.rounds)
     return await Events.create(body)
   }
