@@ -1,0 +1,35 @@
+<div class="container">
+  <div
+    class="table"
+    [ngStyle]="{
+      width: TABLE_WIDTH - 2 + 'rem',
+      height: TABLE_HEIGHT - 2 + 'rem'
+    }"
+  >
+    <div
+      class="dm player centered"
+      *ngIf="table.hasDM"
+      [ngStyle]="{ transform: 'translateX(-' + TABLE_WIDTH / 2 + 'rem)' }"
+    >
+      DM
+    </div>
+    <ng-container *ngFor="let party of table.parties; let i = index">
+      <div
+        class="player centered"
+        [matTooltip]="party.leader.name"
+        [ngStyle]="computeCoordinates($any(party.leader).coordinates)"
+      >
+        L
+      </div>
+
+      <div
+        class="player centered"
+        *ngFor="let player of party.partners; let j = index"
+        [matTooltip]="player.name"
+        [ngStyle]="computeCoordinates($any(player).coordinates)"
+      >
+        P
+      </div>
+    </ng-container>
+  </div>
+</div>

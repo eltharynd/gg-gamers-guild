@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: red;
+  margin: 1rem;
+  padding: 2.5rem;
+
+  .table {
+    position: relative;
+    background-color: rgb(114, 80, 17);
+    border-radius: 1rem;
+
+    .player {
+      --diameter: 2.4rem;
+      position: absolute;
+      top: calc(50% - var(--diameter) / 2);
+      left: calc(50% - var(--diameter) / 2);
+      width: var(--diameter);
+      height: var(--diameter);
+      border-radius: 50%;
+      background-color: green;
+      z-index: 1;
+    }
+  }
+}

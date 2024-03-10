@@ -1,5 +1,12 @@
 Events Works!
 
-<div *ngFor="let event of events">
+<div *ngFor="let event of events; let e = index">
   {{ event.title }}
+  <div *ngFor="let round of event.rounds; let r = index">
+    <div>{{ round.start }} - {{ round.end }}</div>
+
+    <div *ngFor="let table of round.tables; let t = index">
+      <app-table [table]="table"></app-table>
+    </div>
+  </div>
 </div>

@@ -47,7 +47,5 @@ import { POPIN } from '../../ui/animations'
 })
 export class HeaderComponent {
   hovering: boolean = false
-  constructor(public auth: AuthGuard) {
-    setInterval(() => console.log(this.hovering), 1000)
-  }
+  constructor(public auth: AuthGuard) {}
 }

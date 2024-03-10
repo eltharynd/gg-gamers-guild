@@ -1,5 +1,6 @@
 import {
   IsArray,
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -25,6 +26,8 @@ export class Party {
   @IsArray()
   // @Type(() => Adventurer)
   partners: Adventurer[]
+
+  registered: Date
 }
 
 export class Table {
@@ -39,6 +42,10 @@ export class Table {
   @IsNumber()
   @Min(1)
   maximumSeats: number
+
+  @IsOptional()
+  @IsBoolean()
+  hasDM?: boolean
 }
 
 export class Round {
@@ -71,4 +78,19 @@ export class Event {
   date: Date
 
   rounds: Round[]
+}
+
+export class AssignedTable extends Table {
+  parties: Party[] = []
+}
+export class AssignedRound extends Round {
+  override tables: AssignedTable[]
+}
+export class AssignedEvent extends Event {
+  override rounds: AssignedRound[]
+}
+
+export class AssignedAdventurerWithCoordinates extends Adventurer {
+  index: number
+  coordinates: { x: number; y: number }
 }
