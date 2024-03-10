@@ -5,11 +5,13 @@
     (mouseenter)="hovering = true"
     (mouseleave)="hovering = false"
   >
-    <div [@fromLeft]="hovering">GAMER'S</div>
+    <div [@fromLeft]="hovering" class="stroke-double" title="GAMER'S">
+      GAMER'S
+    </div>
     <div>
       <div [@shrink]="hovering" class="image"></div>
     </div>
-    <div [@fromRight]="hovering">GUILD</div>
+    <div [@fromRight]="hovering" class="stroke-double" title="GUILD">GUILD</div>
   </div>
   <div class="nav" @popIn>
     <div><a routerLink="/events">EVENTI</a></div>
