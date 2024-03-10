@@ -37,6 +37,8 @@ export class TableComponent implements OnInit {
         .reduce((p, c) => p + c, 0) -
         1)
 
+    let perimeterSection
+
     //angle of rectangle bisect
     let ε = Math.atan(this.TABLE_HEIGHT / this.TABLE_WIDTH)
     //radius of the circle encompassing the table rectangle
@@ -60,32 +62,11 @@ export class TableComponent implements OnInit {
       let x = Math.cos(θ) * r
       let y = Math.sin(θ) * r
 
-      if (
-        Math.abs(x) <= this.TABLE_WIDTH / 2 &&
-        Math.abs(y) <= this.TABLE_HEIGHT / 2
-      ) {
-        //ray is inside of rectangle (intersecting points)
-        //do nothing
-      } else if (
-        Math.abs(x) <= this.TABLE_WIDTH / 2 &&
-        Math.abs(y) >= this.TABLE_HEIGHT / 2
-      ) {
-        //ray is above/under rectangle
-        y = (this.TABLE_HEIGHT / 2) * (y > 0 ? 1 : -1)
-        x = (1 / Math.tan(θ)) * y
-      } else if (
-        Math.abs(x) >= this.TABLE_WIDTH / 2 &&
-        Math.abs(y) <= this.TABLE_HEIGHT / 2
-      ) {
-        //ray is left/right of rectangle
-        x = (this.TABLE_WIDTH / 2) * (x > 0 ? 1 : -1)
-        y = Math.tan(θ) * x
-      }
-
-      player.coordinates = {
-        x,
-        y,
-      }
+      player.coordinates = this.coordinatesOfInscribedRectangle(
+        this.TABLE_WIDTH,
+        this.TABLE_HEIGHT,
+        { x, y }
+      )
     }
   }
 
@@ -96,5 +77,29 @@ export class TableComponent implements OnInit {
         coordinates.x
       }rem) translateY(${-coordinates.y}rem)`,
     }
+  }
+
+  coordinatesOfInscribedRectangle(
+    width: number,
+    height: number,
+    coordinates: { x: number; y: number }
+  ): { x: number; y: number } {
+    let x = coordinates.x,
+      y = coordinates.y
+    let θ = Math.atan(y / x)
+
+    if (Math.abs(x) <= width / 2 && Math.abs(y) <= height / 2) {
+      //ray is inside of rectangle (intersecting points)
+      //do nothing
+    } else if (Math.abs(x) <= width / 2 && Math.abs(y) >= height / 2) {
+      //ray is above/under rectangle
+      y = (this.TABLE_HEIGHT / 2) * (y > 0 ? 1 : -1)
+      x = (1 / Math.tan(θ)) * y
+    } else if (Math.abs(x) >= width / 2 && Math.abs(y) <= height / 2) {
+      //ray is left/right of rectangle
+      x = (width / 2) * (x > 0 ? 1 : -1)
+      y = Math.tan(θ) * x
+    }
+    return { x, y }
   }
 }
