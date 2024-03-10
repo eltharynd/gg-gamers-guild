@@ -3,25 +3,58 @@
   justify-content: center;
   align-items: center;
 
-  background-color: red;
+  //background-color: red;
   margin: 1rem;
   padding: 2.5rem;
 
   .table {
     position: relative;
     background-color: rgb(114, 80, 17);
-    border-radius: 1rem;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url('/assets/wood.png');
+    background-size: cover;
+    border: 4px solid;
+
+    .desc {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      font-weight: 300;
+      backdrop-filter: blur(1px) brightness(70%);
+      padding: 1rem 1.5rem;
+      border-radius: 1rem;
+      color: white;
+    }
 
     .player {
-      --diameter: 2.4rem;
+      --diameter: 3rem;
       position: absolute;
       top: calc(50% - var(--diameter) / 2);
       left: calc(50% - var(--diameter) / 2);
       width: var(--diameter);
       height: var(--diameter);
       border-radius: 50%;
-      background-color: green;
+      border: 4px solid;
       z-index: 1;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .dm {
+      z-index: 2;
+    }
+
+    .seat {
+      background-color: #90a4ae;
+      border-color: #607d8b;
+      border-style: dashed;
     }
   }
 }

@@ -11,6 +11,7 @@ import { TableComponent } from './components/table/table.component'
 import { ToFormArrayPipe } from './pipes/formarray.pipe'
 import { FormControlErrorsPipe } from './pipes/formcontrol-error.pipe'
 import { ToFormGroupPipe } from './pipes/formgroup.pipe'
+import { HumanIndexPipe } from './pipes/human-index.pipe'
 import { TablePartiesPipe, TablePlayersPipe } from './pipes/table.pipe'
 import { MaterialModule } from './ui/material.module'
 
@@ -32,6 +33,7 @@ const declarations: any[] = [
 
 const providers: any[] = [
   FormControlErrorsPipe,
+  HumanIndexPipe,
   TablePartiesPipe,
   TablePlayersPipe,
   ToFormArrayPipe,

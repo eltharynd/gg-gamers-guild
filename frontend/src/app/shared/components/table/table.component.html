@@ -2,34 +2,64 @@
   <div
     class="table"
     [ngStyle]="{
-      width: TABLE_WIDTH - 2 + 'rem',
-      height: TABLE_HEIGHT - 2 + 'rem'
+      width: TABLE_WIDTH + 'rem',
+      height: TABLE_HEIGHT + 'rem'
     }"
+    [style.background-color]="tableColor.bg"
+    [style.border-color]="tableColor.border"
   >
+    <div class="desc">
+      <div>Gruppi: {{ table | tableParties }}</div>
+      <div>Giocatori: {{ table | tablePlayers }} /{{ table.maximumSeats }}</div>
+    </div>
     <div
       class="dm player centered"
       *ngIf="table.hasDM"
-      [ngStyle]="{ transform: 'translateX(-' + TABLE_WIDTH / 2 + 'rem)' }"
+      [ngStyle]="{
+        transform: 'translateX(-' + (TABLE_WIDTH / 2 + 0.5) + 'rem)'
+      }"
+      [style.background-color]="dmColor.bg"
+      [style.border-color]="dmColor.border"
     >
       DM
     </div>
-    <ng-container *ngFor="let party of table.parties; let i = index">
+    <ng-container *ngFor="let party of table.parties; let p = index">
       <div
         class="player centered"
         [matTooltip]="party.leader.name"
         [ngStyle]="computeCoordinates($any(party.leader).coordinates)"
+        [style.background-color]="playerColors(p).bg"
+        [style.border-color]="playerColors(p).border"
       >
-        L
+        {{ p | humanIndex }}
       </div>
 
       <div
         class="player centered"
-        *ngFor="let player of party.partners; let j = index"
+        *ngFor="let player of party.partners"
         [matTooltip]="player.name"
         [ngStyle]="computeCoordinates($any(player).coordinates)"
+        [style.background-color]="playerColors(p).bg"
+        [style.border-color]="playerColors(p).border"
       >
-        P
+        {{ p | humanIndex }}
       </div>
     </ng-container>
+    <div
+      class="player seat centered"
+      *ngFor="let seat of seats"
+      matTooltip="Posto Libero"
+      [ngStyle]="computeCoordinates($any(seat).coordinates)"
+      [style.background-color]="seatColor.bg"
+      [style.border-color]="seatColor.border"
+    ></div>
+    <div
+      class="player seat extra centered"
+      *ngFor="let seat of extraSeats"
+      matTooltip="Posto Libero (riserva)"
+      [ngStyle]="computeCoordinates($any(seat).coordinates)"
+      [style.background-color]="extraSeatColor.bg"
+      [style.border-color]="extraSeatColor.border"
+    ></div>
   </div>
 </div>
