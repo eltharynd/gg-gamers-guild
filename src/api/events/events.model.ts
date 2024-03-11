@@ -21,69 +21,54 @@ const adventurerSchema: Schema<Adventurer> = new Schema(
 )
 export interface AdventurerModel extends Adventurer, Document {}
 
-const partySchema: Schema<Party> = new Schema(
-  {
-    leader: {
-      type: adventurerSchema,
-      required: true,
-    },
-    partners: {
-      type: [adventurerSchema],
-      required: true,
-      default: [],
-    },
+const partySchema: Schema<Party> = new Schema({
+  leader: {
+    type: adventurerSchema,
+    required: true,
   },
-  {
-    _id: false,
-  }
-)
-export interface TableModel extends Party, Document {}
+  partners: {
+    type: [adventurerSchema],
+    required: true,
+    default: [],
+  },
+})
+export interface PartyModel extends Omit<Party, '_id'>, Document {}
 
-const tableSchema: Schema<Table> = new Schema(
-  {
-    minimumSeats: {
-      type: Number,
-    },
-    optimalSeats: {
-      type: Number,
-    },
-    maximumSeats: {
-      type: Number,
-      required: true,
-    },
+const tableSchema: Schema<Table> = new Schema({
+  minimumSeats: {
+    type: Number,
   },
-  {
-    _id: false,
-  }
-)
-export interface TableModel extends Table, Document {}
+  optimalSeats: {
+    type: Number,
+  },
+  maximumSeats: {
+    type: Number,
+    required: true,
+  },
+})
+export interface TableModel extends Omit<Table, '_id'>, Document {}
 
-const roundSchema: Schema<Round> = new Schema(
-  {
-    start: {
-      type: String,
-      required: true,
-    },
-    end: {
-      type: String,
-      required: true,
-    },
-    tables: {
-      type: [tableSchema],
-      required: true,
-      default: [],
-    },
-    parties: {
-      type: [partySchema],
-      required: true,
-      default: [],
-    },
+const roundSchema: Schema<Round> = new Schema({
+  start: {
+    type: String,
+    required: true,
   },
-  {
-    _id: false,
-  }
-)
-export interface RoundModel extends Round, Document {}
+  end: {
+    type: String,
+    required: true,
+  },
+  tables: {
+    type: [tableSchema],
+    required: true,
+    default: [],
+  },
+  parties: {
+    type: [partySchema],
+    required: true,
+    default: [],
+  },
+})
+export interface RoundModel extends Omit<Round, '_id'>, Document {}
 
 const eventSchema: Schema = new Schema(
   {

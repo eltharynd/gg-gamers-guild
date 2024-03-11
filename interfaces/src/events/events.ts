@@ -19,6 +19,8 @@ export class Adventurer {
 }
 
 export class Party {
+  _id?: mongoose.Types.ObjectId | string
+
   @ValidateNested()
   //@Type(() => Adventurer)
   leader: Adventurer
@@ -31,6 +33,8 @@ export class Party {
 }
 
 export class Table {
+  _id?: mongoose.Types.ObjectId | string
+
   @IsOptional()
   @IsNumber()
   @Min(0)
@@ -49,6 +53,8 @@ export class Table {
 }
 
 export class Round {
+  _id?: mongoose.Types.ObjectId | string
+
   @IsString()
   @IsNotEmpty()
   @Matches(/^[0-2][0-9]:[0-9][0-9]$/)
