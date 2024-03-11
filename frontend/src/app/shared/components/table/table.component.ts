@@ -82,13 +82,6 @@ export class TableComponent implements OnChanges {
           return [...p, ...c]
         }, [])
 
-    console.log(
-      this.table.parties.length,
-      players.length,
-      this.table.maximumSeats,
-      players
-    )
-
     while (
       players.length < (this.table.optimalSeats || this.table.maximumSeats)
     ) {
@@ -141,7 +134,6 @@ export class TableComponent implements OnChanges {
   }
 
   computeCoordinates(coordinates: { x: number; y: number }) {
-    //console.log(`translateX(${coordinates.x}%) translateY(${-coordinates.y}%)`)
     return {
       transform: `translateX(${
         coordinates?.x

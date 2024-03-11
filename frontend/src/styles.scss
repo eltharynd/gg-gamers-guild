@@ -22,6 +22,10 @@ mat-accordion.small > mat-expansion-panel {
     width: calc(100vw - 1rem);
     max-width: calc(100vw - 1rem);
     margin: 1rem auto;
+    > mat-card-header,
+    > mat-card-content {
+      padding: 1rem 0.5rem;
+    }
   }
 }
 
@@ -35,6 +39,10 @@ mat-accordion.medium > mat-expansion-panel {
     width: calc(100vw - 1rem);
     max-width: calc(100vw - 1rem);
     margin: 1rem auto;
+    > mat-card-header,
+    > mat-card-content {
+      padding: 1rem 0.5rem;
+    }
   }
 }
 

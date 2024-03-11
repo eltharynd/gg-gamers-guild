@@ -91,15 +91,9 @@ export class EventsComponent {
   async ngOnInit() {
     let events: Event[] = await this.data.get(`events`)
     this.events = events.filter((e) => {
-      console.log(new Date(e.date).getTime())
-      console.log(this.today.getTime())
-      console.log(new Date(e.date).getTime() >= this.today.getTime())
       return new Date(e.date).getTime() >= this.today.getTime()
     })
     this.past = events.filter((e) => {
-      console.log(new Date(e.date).getTime())
-      console.log(this.today.getTime())
-      console.log(new Date(e.date).getTime() < this.today.getTime())
       return new Date(e.date).getTime() < this.today.getTime()
     })
   }
