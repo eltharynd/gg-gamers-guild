@@ -212,49 +212,10 @@
   </mat-card-header>
   <mat-card-content>
     <mat-card *ngFor="let event of events" class="event">
-      <mat-card-header>
-        <mat-card-title>{{ event.title }}</mat-card-title>
-        <mat-card-subtitle>{{ event.date | date }}</mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-content class="event">
-        <div
-          class="uploader"
-          [ngStyle]="
-            event.picture
-              ? {
-                  'background-image': 'url(' + pictureURL + event.picture + ')'
-                }
-              : {}
-          "
-        >
-          <input
-            type="file"
-            accept=".png,.jpg,.jpeg"
-            [(ngModel)]="_selectedFiles[event._id.toString()]"
-            [ngModelOptions]="{ standalone: true }"
-            (change)="uploadPicture($event, event)"
-          />
-        </div>
-        <div class="description">{{ event.description }}</div>
-        <div class="round" *ngFor="let round of event.rounds; let r = index">
-          <div>{{ r + 1 }}° Round</div>
-          <div class="table" *ngFor="let table of round.tables; let t = index">
-            <div>Table {{ t + 1 }}</div>
-          </div>
-        </div>
-      </mat-card-content>
-      <mat-card-footer>
-        <div class="row end">
-          <button
-            mat-raised-button
-            (click)="deleteEvent(event)"
-            color="warn"
-            [disabled]="data.busy"
-          >
-            Cancella Evento
-          </button>
-        </div>
-      </mat-card-footer>
+      <ng-container
+        [ngTemplateOutlet]="eventCard"
+        [ngTemplateOutletContext]="{ event }"
+      ></ng-container>
     </mat-card>
   </mat-card-content>
 </mat-card>
@@ -270,6 +231,59 @@
     </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <mat-card *ngFor="let e of past"> </mat-card>
+    <mat-card *ngFor="let event of past">
+      <ng-container
+        [ngTemplateOutlet]="eventCard"
+        [ngTemplateOutletContext]="{ event, past: true }"
+      ></ng-container>
+    </mat-card>
   </mat-card-content>
 </mat-card>
+
+<ng-template #eventCard let-event="event" let-past="past">
+  <mat-card-header>
+    <mat-card-title>{{ event.title }}</mat-card-title>
+    <mat-card-subtitle>{{ event.date | date }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content class="event">
+    <div
+      class="uploader"
+      [ngStyle]="
+        event.picture
+          ? {
+              'background-image': 'url(' + pictureURL + event.picture + ')'
+            }
+          : {}
+      "
+    >
+      <input
+        *ngIf="!past"
+        type="file"
+        accept=".png,.jpg,.jpeg"
+        [(ngModel)]="_selectedFiles[event._id.toString()]"
+        [ngModelOptions]="{ standalone: true }"
+        (change)="uploadPicture($event, event)"
+      />
+    </div>
+    <div class="description">{{ event.description }}</div>
+    <div class="round" *ngFor="let round of event.rounds; let r = index">
+      <div>{{ r + 1 }}° Round</div>
+      <div class="table" *ngFor="let table of round.tables; let t = index">
+        <div>Table {{ t + 1 }}</div>
+      </div>
+    </div>
+  </mat-card-content>
+  <mat-card-footer>
+    <div class="row end">
+      <button
+        *ngIf="!past"
+        mat-raised-button
+        (click)="deleteEvent(event)"
+        color="warn"
+        [disabled]="data.busy"
+      >
+        Cancella Evento
+      </button>
+    </div>
+  </mat-card-footer>
+</ng-template>
