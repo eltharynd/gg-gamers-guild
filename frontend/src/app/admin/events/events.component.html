@@ -217,6 +217,24 @@
         <mat-card-subtitle>{{ event.date | date }}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content class="event">
+        <div
+          class="uploader"
+          [ngStyle]="
+            event.picture
+              ? {
+                  'background-image': 'url(' + pictureURL + event.picture + ')'
+                }
+              : {}
+          "
+        >
+          <input
+            type="file"
+            accept=".png,.jpg,.jpeg"
+            [(ngModel)]="_selectedFiles[event._id.toString()]"
+            [ngModelOptions]="{ standalone: true }"
+            (change)="uploadPicture($event, event)"
+          />
+        </div>
         <div class="description">{{ event.description }}</div>
         <div class="round" *ngFor="let round of event.rounds; let r = index">
           <div>{{ r + 1 }}° Round</div>

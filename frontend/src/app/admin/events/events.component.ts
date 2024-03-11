@@ -9,6 +9,8 @@ import {
 import { MatExpansionPanel } from '@angular/material/expansion'
 import { Event } from 'gg-gamers-guild-interfaces'
 import { debounceTime } from 'rxjs'
+import { environment } from '../../../environments/environment'
+import { AuthGuard } from '../../shared/guards/auth.guard'
 import { DataService } from '../../shared/services/data.service'
 import { UtilsService } from '../../shared/services/utils.service'
 import { POPIN } from '../../shared/ui/animations'
@@ -25,7 +27,8 @@ export class EventsComponent {
 
   @ViewChild('expansionPanel') expansionPanel: MatExpansionPanel
 
-  today = new Date().setHours(0, 0, 0, 0)
+  today
+  pictureURL = `${environment.API_BASE_URL}uploads/`
 
   formGroup = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.minLength(1)]),
@@ -76,15 +79,28 @@ export class EventsComponent {
     })
   }
 
-  constructor(public data: DataService, private utils: UtilsService) {}
+  constructor(
+    public data: DataService,
+    private utils: UtilsService,
+    private auth: AuthGuard
+  ) {
+    this.today = new Date()
+    this.today.setHours(0, 0, 0, 0)
+  }
 
   async ngOnInit() {
     let events: Event[] = await this.data.get(`events`)
     this.events = events.filter((e) => {
-      return new Date(e.date).getTime() >= this.today
+      console.log(new Date(e.date).getTime())
+      console.log(this.today.getTime())
+      console.log(new Date(e.date).getTime() >= this.today.getTime())
+      return new Date(e.date).getTime() >= this.today.getTime()
     })
     this.past = events.filter((e) => {
-      return new Date(e.date).getTime() < this.today
+      console.log(new Date(e.date).getTime())
+      console.log(this.today.getTime())
+      console.log(new Date(e.date).getTime() < this.today.getTime())
+      return new Date(e.date).getTime() < this.today.getTime()
     })
   }
 
@@ -152,6 +168,36 @@ export class EventsComponent {
   async deleteEvent(event: Event) {
     this.data.delete(`events/${event._id}`).then(() => {
       this.events.splice(this.events.indexOf(event), 1)
+      delete this._selectedFiles[event._id.toString()]
+    })
+  }
+
+  _selectedFiles: { [key: string]: any } = {}
+  uploadPicture(htmlEvent: any, event: Event) {
+    return new Promise((resolve, reject) => {
+      let file = htmlEvent.target?.files[0] || htmlEvent.files[0]
+
+      if (!file) return
+
+      const formData: FormData = new FormData()
+      formData.append('file', file, file.name)
+      formData.append('filename', file.name)
+
+      let xhr = new XMLHttpRequest()
+      xhr.open('POST', `${environment.API_BASE_URL}events/${event._id}`)
+
+      let auth = this.auth.getAuthorizationHeader()
+      for (let k of Object.keys(auth)) xhr.setRequestHeader(k, auth[k])
+
+      xhr.onerror = (err) => {
+        console.error(err)
+        reject(err)
+      }
+      xhr.onloadend = () => {
+        event.picture = JSON.parse(xhr.response)._id
+        resolve(xhr.response)
+      }
+      xhr.send(formData)
     })
   }
 }

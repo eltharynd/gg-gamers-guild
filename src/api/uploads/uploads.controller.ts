@@ -21,14 +21,12 @@ import { uploadsMiddleware } from '../middlewares/multer.middleware'
 @Controller(`/uploads`)
 export class UploadsController {
   @Get(`/:fileId`)
-  @UseBefore(AuthGuard)
   async download(
     @Req() req: Request,
     @Res() res: Response,
     @Param('fileId') fileId: string
   ) {
     let cursor = Mongo.Uploads.find({
-      'metadata.user': req.auth._id,
       _id: Mongo.ObjectId(fileId),
     })
 

@@ -69,6 +69,7 @@ export class Round {
 
 export class Event {
   _id?: mongoose.Types.ObjectId | string
+  picture?: mongoose.Types.ObjectId | string
 
   title: string
   description: string
