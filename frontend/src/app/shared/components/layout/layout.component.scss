@@ -3,14 +3,20 @@
   flex-direction: column;
   justify-content: space-between;
 
+  gap: 1rem;
+
   .content {
     flex-grow: 1;
 
     max-width: 75vw;
-    padding: 1rem;
+    padding: 0 1rem;
     @media only screen and (max-width: 950px) {
       max-width: 100vw;
-      padding: 1rem 0.5rem;
+      padding: 0 0.5rem;
+    }
+    @media only screen and (max-width: 400px) {
+      max-width: 100vw;
+      padding: 0 0rem;
     }
     margin: auto;
   }
