@@ -13,16 +13,6 @@ a {
   }
 }
 
-.pagination {
-  width: 72rem;
-  max-width: 72rem;
-  max-width: 100%;
-  @media only screen and (max-width: 600px) {
-    width: calc(100vw - 1rem);
-    max-width: calc(100vw - 1rem);
-  }
-}
-
 mat-card.small,
 mat-accordion.small > mat-expansion-panel {
   width: 36rem;
