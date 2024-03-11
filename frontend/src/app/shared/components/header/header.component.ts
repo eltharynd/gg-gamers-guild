@@ -63,7 +63,6 @@ export class HeaderComponent {
 
     viewport.viewPortChanges.subscribe(() => {
       this.mobile = this.viewport.width <= 600
-      console.log('here', this.mobile)
       this.cdr.detectChanges()
     })
   }
