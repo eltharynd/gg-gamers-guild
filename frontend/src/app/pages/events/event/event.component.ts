@@ -6,6 +6,7 @@ import {
   AssignedRound,
 } from 'gg-gamers-guild-interfaces'
 import { environment } from '../../../../environments/environment'
+import { AuthGuard } from '../../../shared/guards/auth.guard'
 import { DataService } from '../../../shared/services/data.service'
 
 @Component({
@@ -20,6 +21,7 @@ export class EventComponent implements OnInit {
 
   constructor(
     private data: DataService,
+    public auth: AuthGuard,
     private cdr: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -27,8 +29,10 @@ export class EventComponent implements OnInit {
   id = 0
   async ngOnInit() {
     let event: AssignedEvent = await this.data.get(
-      `events/:${this.activatedRoute.params['eventId']}`
+      `events/${this.activatedRoute.snapshot.paramMap.get('eventId')}`
     )
+    if (!event) return
+
     for (let r of event.rounds) for (let t of r.tables) t.parties = []
 
     //MOCK DATA///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -31,7 +31,7 @@ mat-accordion.medium > mat-expansion-panel {
   max-width: 72rem;
   max-width: 100%;
   margin: 2rem auto;
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 950px) {
     width: calc(100vw - 1rem);
     max-width: calc(100vw - 1rem);
     margin: 1rem auto;

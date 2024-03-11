@@ -1,39 +1,56 @@
 <mat-card class="event medium">
   <mat-card-header>
     <mat-card-title class="title">
-      {{ event.title }}
+      {{ event?.title }}
     </mat-card-title>
     <mat-card-subtitle>
-      {{ event.date | date }}
+      {{ event?.date | date }}
     </mat-card-subtitle>
   </mat-card-header>
 
   <mat-card-content>
-    <div
-      class="picture"
-      [ngStyle]="
-        event.picture
-          ? {
-              'background-image': 'url(' + pictureURL + event.picture + ')'
-            }
-          : {}
-      "
-    ></div>
-
-    <div *ngFor="let round of event.rounds" class="round">
-      <div class="time">
-        <div>{{ round.start }} - {{ round.end }}</div>
-        <button mat-raised-button (click)="add(round)" color="accent">
-          ADD
-        </button>
-      </div>
-
-      <div class="tables">
-        <app-table
-          *ngFor="let table of round.tables"
-          [table]="table"
-        ></app-table>
+    <div>
+      <div
+        class="picture"
+        [ngStyle]="
+          event?.picture
+            ? {
+                'background-image': 'url(' + pictureURL + event.picture + ')'
+              }
+            : {}
+        "
+      >
+        <div class="desc centered">
+          <div class="text">
+            {{ event?.description }}
+          </div>
+        </div>
       </div>
     </div>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngFor="let round of event?.rounds; let r = index" class="round">
+  <mat-card-header>
+    <mat-card-title>
+      Tavoli del {{ r + 1 }}° Round
+      <button
+        *ngIf="auth?.authenticatedUser?.admin"
+        mat-raised-button
+        color="primary"
+        style="margin-left: 2rem"
+        (click)="add(round)"
+      >
+        AGGIUNGI PARTY (TEST)
+      </button>
+    </mat-card-title>
+    <mat-card-subtitle>{{ round.start }} - {{ round.end }}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <app-table
+      *ngFor="let table of round.tables"
+      [table]="table"
+      class="table"
+    ></app-table>
   </mat-card-content>
 </mat-card>

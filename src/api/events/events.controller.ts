@@ -22,21 +22,28 @@ import { EventModel, Events } from './events.model'
 @JsonController(`/events`)
 export class EventsController {
   @Get(`/`)
-  async getEvents() {
+  async getAllEvents() {
     return await Events.find().sort({ date: -1 })
+  }
+
+  @Get(`/:eventId`)
+  async getAnEvent(@Param('eventId') eventId: string) {
+    let event = await Events.findById(eventId)
+    if (!event) throw new NOT_FOUND()
+    return event
   }
 
   @Post(`/`)
   @UseBefore(AdminGuard)
   //TODO fix class-validator
-  async createEvent(@Body({ validate: false }) body: any) {
+  async createAnEvent(@Body({ validate: false }) body: any) {
     console.log(body.rounds)
     return await Events.create(body)
   }
 
   @Delete(`/:eventId`)
   @UseBefore(AdminGuard)
-  async deleteEvent(@Param('eventId') eventId: string) {
+  async deleteAnEvent(@Param('eventId') eventId: string) {
     let event: EventModel = await Events.findById(eventId)
     let date = new Date(event.date)
     date.setHours(0, 0, 0, 0)
@@ -52,7 +59,10 @@ export class EventsController {
   @Post(`/:eventId`)
   @UseBefore(AdminGuard)
   @UseBefore(uploadsMiddleware)
-  async upload(@Req() req: any, @Param('eventId') eventId: string) {
+  async uploadPictureForAnEvent(
+    @Req() req: any,
+    @Param('eventId') eventId: string
+  ) {
     if (!req.file)
       throw new BAD_REQUEST(`You didn't send a file with your request...`)
 
