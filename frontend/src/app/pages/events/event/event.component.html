@@ -1,0 +1,39 @@
+<mat-card class="event medium">
+  <mat-card-header>
+    <mat-card-title class="title">
+      {{ event.title }}
+    </mat-card-title>
+    <mat-card-subtitle>
+      {{ event.date | date }}
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div
+      class="picture"
+      [ngStyle]="
+        event.picture
+          ? {
+              'background-image': 'url(' + pictureURL + event.picture + ')'
+            }
+          : {}
+      "
+    ></div>
+
+    <div *ngFor="let round of event.rounds" class="round">
+      <div class="time">
+        <div>{{ round.start }} - {{ round.end }}</div>
+        <button mat-raised-button (click)="add(round)" color="accent">
+          ADD
+        </button>
+      </div>
+
+      <div class="tables">
+        <app-table
+          *ngFor="let table of round.tables"
+          [table]="table"
+        ></app-table>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

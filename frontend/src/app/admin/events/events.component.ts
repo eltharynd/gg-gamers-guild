@@ -16,7 +16,7 @@ import { UtilsService } from '../../shared/services/utils.service'
 import { POPIN } from '../../shared/ui/animations'
 
 @Component({
-  selector: 'app-events',
+  selector: 'app-admin-events',
   templateUrl: './events.component.html',
   styleUrl: './events.component.scss',
   animations: [POPIN],
