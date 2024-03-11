@@ -19,16 +19,16 @@ import { POPIN } from '../../shared/ui/animations'
   animations: [
     POPIN,
     trigger('expansion', [
-      state('true', style({ opacity: 1, 'max-height': '100vh' })),
+      state('true', style({ opacity: 1, 'max-height': '36rem' })),
       state('false', style({ opacity: 0, 'max-height': 0 })),
       transition(
         'false => true',
         animate(
           '750ms ease',
           keyframes([
-            style({ opacity: 0, 'max-height': 0 }),
-            style({ opacity: 0, 'max-height': '100vh' }),
-            style({ opacity: 1, 'max-height': '100vh' }),
+            style({ opacity: 0, 'max-height': 0, overflow: 'hidden' }),
+            style({ opacity: 0.3, 'max-height': '18rem', overflow: 'hidden' }),
+            style({ opacity: 1, 'max-height': '36rem', overflow: 'hidden' }),
           ])
         )
       ),
@@ -37,9 +37,9 @@ import { POPIN } from '../../shared/ui/animations'
         animate(
           '750ms ease',
           keyframes([
-            style({ opacity: 1, 'max-height': '100vh' }),
-            style({ opacity: 0, 'max-height': '100vh' }),
-            style({ opacity: 0, 'max-height': 0 }),
+            style({ opacity: 1, 'max-height': '36rem', overflow: 'hidden' }),
+            style({ opacity: 0.7, 'max-height': '18rem', overflow: 'hidden' }),
+            style({ opacity: 0, 'max-height': 0, overflow: 'hidden' }),
           ])
         )
       ),
@@ -60,6 +60,14 @@ export class EventsComponent implements OnInit {
   constructor(private data: DataService) {}
 
   async ngOnInit() {
-    this.events = await this.data.get(`events`)
+    let events: AssignedEvent[] = await this.data.get(`events`)
+    let today = new Date()
+    today.setHours(0, 0, 0, 0)
+    for (let e of events) {
+      if (new Date(e.date).getTime() >= today.getTime()) {
+        ;(e as any).expanded = true
+      }
+    }
+    this.events = events
   }
 }

@@ -4,6 +4,8 @@
   }
   cursor: pointer;
 
+  margin-bottom: 2rem;
+
   mat-card-header {
     position: relative;
   }
@@ -74,6 +76,7 @@
   }
 
   @media only screen and (max-width: 600px) {
+    margin-bottom: 1rem;
     .picture {
       .desc {
         padding: 1cm 0.5rem;
