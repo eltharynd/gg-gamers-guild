@@ -1,3 +1,9 @@
+import {
+  GoogleInitOptions,
+  GoogleLoginProvider,
+  GoogleSigninButtonModule,
+  SocialAuthServiceConfig,
+} from '@abacritt/angularx-social-login'
 import { CommonModule } from '@angular/common'
 import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
@@ -18,6 +24,7 @@ import { MaterialModule } from './ui/material.module'
 const imports: any[] = [
   CommonModule,
   FontAwesomeModule,
+  GoogleSigninButtonModule,
   HttpClientModule,
   MaterialModule,
   RouterModule,
@@ -40,10 +47,34 @@ const providers: any[] = [
   ToFormGroupPipe,
 ]
 
+const googleLoginOption: GoogleInitOptions = {
+  oneTapEnabled: false,
+}
+
 @NgModule({
   imports: [...imports],
   declarations: [...declarations, ...providers],
   exports: [...imports, ...declarations, ...providers],
-  providers: [...providers],
+  providers: [
+    ...providers,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: true,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '679568686836-2k5ic2vlgg2rcpjk3lufakcgbbv0i6ff.apps.googleusercontent.com',
+              googleLoginOption
+            ),
+          },
+        ],
+        onError: (err) => {
+          console.error(err)
+        },
+      } as SocialAuthServiceConfig,
+    },
+  ],
 })
 export class SharedModule {}

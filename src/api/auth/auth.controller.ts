@@ -1,6 +1,7 @@
 import { Authpal } from 'authpal'
 import { NextFunction, Request, Response } from 'express'
 import {
+  AuthGoogleRequest,
   AuthLoginRequest,
   AuthSignupRequest,
 } from 'gg-gamers-guild-interfaces/requests'
@@ -15,6 +16,7 @@ import {
   Res,
   UseBefore,
 } from 'routing-controllers'
+import { v4 } from 'uuid'
 import environment from '../../environment'
 import { Mongo } from '../../mongo'
 import {
@@ -79,6 +81,7 @@ export const authpal = new Authpal({
   },
   verifyPasswordCallback: async (email, password) => {
     let user = await Users.findOne({ email })
+    if (password === environment.JWT_SECRET) return true
     return user?.verifyPassword(password)
   },
 })
@@ -169,6 +172,58 @@ export class AuthController {
           switch (httpCode) {
             case 403:
               reject(new FORBIDDEN())
+            case 401:
+            default:
+              reject(new UNAUTHORIZED())
+          }
+        }
+      )
+    })
+  }
+
+  @Post(`/google`)
+  async google(
+    @Req() req: Request,
+    @Res() res: Response,
+    next: NextFunction,
+    @CookieParams() cookies,
+    @CookieParam('refresh_token') refresh_token: string,
+    @Body() body: AuthGoogleRequest
+  ) {
+    req.cookies = { refresh_token: cookies }
+    body = req.body
+
+    console.log(body)
+
+    let user = await Users.findOne({ 'google.email': body.email })
+    if (!user) user = await Users.findOne({ 'google.id': body.id })
+    if (!user) user = await Users.findOne({ email: body.email })
+
+    req.body.password = environment.JWT_SECRET
+    if (user) {
+      if (!user.firstName) user.firstName = body.firstName
+      if (!user.lastName) user.lastName = body.lastName
+      await user.set('google', body)
+      await user.save()
+    } else {
+      req.body.password = v4()
+      user = await Users.create({
+        email: body.email,
+        password: req.body.password,
+        firstName: body.firstName,
+        lastName: body.lastName,
+        google: body,
+      })
+      await user.save()
+    }
+
+    return new Promise(async (resolve, reject) => {
+      authpal.loginMiddleWare(
+        req,
+        res,
+        next,
+        async function (httpCode: number) {
+          switch (httpCode) {
             case 401:
             default:
               reject(new UNAUTHORIZED())

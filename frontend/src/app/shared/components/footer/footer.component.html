@@ -1,9 +1,13 @@
 <footer>
-  <div>
-    <a href="https://github.com/eltharynd" target="_blank">
-      App by eltharynd
-    </a>
+  <a class="credits" href="https://github.com/eltharynd" target="_blank">
+    App by eltharynd
+  </a>
+
+  <div class="links">
+    <a [routerLink]="'/terms-and-conditions'">Terms</a>
+    <a [routerLink]="'/privacy-policy'">Privacy</a>
   </div>
+
   <div class="copyright">
     <div class="name">GG Gamer's Guild Lugano</div>
     <div class="year">© {{ year }}</div>

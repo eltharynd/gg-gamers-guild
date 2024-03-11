@@ -9,7 +9,7 @@ import {
 } from '@angular/router'
 import { AuthpalClient, UserChangesEmitter } from 'authpal-client'
 import axios from 'axios'
-import { PublicUser } from 'gg-gamers-guild-interfaces'
+import { GoogleUser, PublicUser } from 'gg-gamers-guild-interfaces'
 import { Observable, Subject } from 'rxjs'
 import { environment } from '../../../environments/environment'
 
@@ -30,6 +30,7 @@ export class AuthGuard implements CanActivateChild {
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.authPalClient = new AuthpalClient({
+      googlePostUrl: `${environment.API_BASE_URL}auth/google`,
       loginPostURL: `${environment.API_BASE_URL}auth/login`,
       logoutGetURL: `${environment.API_BASE_URL}auth/logout`,
       resumeGetURL: `${environment.API_BASE_URL}auth/resume`,
@@ -91,6 +92,33 @@ export class AuthGuard implements CanActivateChild {
     })
   }
 
+  async google(google: GoogleUser) {
+    this.busy = true
+    return new Promise<void>((resolve, reject) => {
+      this.authPalClient
+        .google(google as any)
+        .then(async () => {
+          await this.me()
+            .then(() => {
+              if (this.guardedRoute) {
+                this.router.navigate([this.guardedRoute])
+                this.guardedRoute = null
+              }
+              this.busy = false
+              resolve()
+            })
+            .catch((e) => {
+              this.busy = false
+              reject(e)
+            })
+        })
+        .catch((e) => {
+          this.busy = false
+          reject(e)
+        })
+    })
+  }
+
   async login(credentials: { email: string; password: string }) {
     this.busy = true
     return new Promise<void>((resolve, reject) => {
@@ -98,12 +126,18 @@ export class AuthGuard implements CanActivateChild {
         .login(credentials)
         .then(async () => {
           await this.me()
-          this.busy = false
-          if (this.guardedRoute) {
-            this.router.navigate([this.guardedRoute])
-            this.guardedRoute = null
-          }
-          resolve()
+            .then(() => {
+              if (this.guardedRoute) {
+                this.router.navigate([this.guardedRoute])
+                this.guardedRoute = null
+              }
+              this.busy = false
+              resolve()
+            })
+            .catch((e) => {
+              this.busy = false
+              reject(e)
+            })
         })
         .catch((e) => {
           this.busy = false

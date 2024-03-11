@@ -29,6 +29,14 @@ const settingsSchema: Schema<Settings> = new Schema(
 )
 export interface SettingsModel extends Settings, Document {}
 
+const googleSchema: Schema = new Schema({
+  id: { type: String },
+  idToken: { type: String },
+  email: { type: String },
+  firstName: { type: String },
+  lastName: { type: String },
+  photoUrl: { type: String },
+})
 const schema: Schema = new Schema(
   {
     email: {
@@ -41,15 +49,19 @@ const schema: Schema = new Schema(
       required: true,
     },
 
+    username: {
+      type: String,
+    },
+
     firstName: {
       type: String,
-      required: true,
-      default: 'John',
     },
     lastName: {
       type: String,
-      required: true,
-      default: 'Doe',
+    },
+
+    google: {
+      type: googleSchema,
     },
 
     admin: {
@@ -82,6 +94,13 @@ schema.methods.public = function (): User {
   let user = Object.assign(this.toJSON())
   delete user._id
   delete user.password
+  if (user.google) {
+    Object.keys(user.google)
+      .filter((k) => k !== 'photoUrl')
+      .forEach((k) => {
+        delete user.google[k]
+      })
+  }
   if (!user.admin) delete user.admin
   return user
 }

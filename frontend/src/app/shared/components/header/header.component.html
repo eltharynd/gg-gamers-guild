@@ -24,11 +24,32 @@
     </div>
     <div *ngIf="auth.authenticatedUser?.admin">·</div>
 
-    <div *ngIf="!auth.authenticatedUser">
-      <a routerLink="/auth/login">LOGIN</a>
-    </div>
+    <asl-google-signin-button
+      *ngIf="!auth.authenticatedUser && !mobile"
+      type="standard"
+      size="medium"
+      text="signin_with"
+      shape="circle"
+      theme="outline"
+      logo_alignment="center"
+      locale="it-CH"
+    >
+    </asl-google-signin-button>
+    <asl-google-signin-button
+      *ngIf="!auth.authenticatedUser && mobile"
+      type="icon"
+      size="medium"
+      text="signin_with"
+      shape="circle"
+      theme="outline"
+      logo_alignment="center"
+      locale="it-CH"
+    >
+    </asl-google-signin-button>
+
     <div *ngIf="auth.authenticatedUser">
       <a [routerLink]="null" (click)="auth.logout()">LOGOUT</a>
     </div>
   </div>
 </header>
+<script src="https://accounts.google.com/gsi/client" async></script>

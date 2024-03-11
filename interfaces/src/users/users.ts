@@ -16,11 +16,24 @@ export class Settings {
   selectedLanguage: DisplayLanguages
 }
 
+export class GoogleUser {
+  id: string
+  idToken: string
+  email: string
+  firstName: string
+  lastName: string
+  photoUrl: string
+}
+
 export class PublicUser {
   email: string
 
-  firstName: string
-  lastName: string
+  username?: string
+
+  firstName?: string
+  lastName?: string
+
+  google?: GoogleUser
 
   admin?: boolean
 

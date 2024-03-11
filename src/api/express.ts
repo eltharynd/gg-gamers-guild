@@ -16,7 +16,11 @@ import { UsersController } from './users/users.controller'
 
 export const origins = environment.PRODUCTION
   ? [`https://${environment.DOMAIN}`]
-  : ['http://localhost:4200', `https://${environment.DOMAIN}`]
+  : [
+      'http://localhost:4200',
+      'https://external.eltharynd.com',
+      `https://${environment.DOMAIN}`,
+    ]
 
 export const app: express.Express = createExpressServer({
   cors: {

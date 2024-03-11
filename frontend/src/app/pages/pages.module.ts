@@ -5,6 +5,8 @@ import { EventComponent } from './events/event/event.component'
 import { EventsComponent } from './events/events.component'
 import { HomeComponent } from './home/home.component'
 import { PagesRoutingModule } from './pages-routing.module'
+import { PrivacyComponent } from './privacy/privacy.component'
+import { TermsComponent } from './terms/terms.component'
 
 @NgModule({
   declarations: [
@@ -12,6 +14,8 @@ import { PagesRoutingModule } from './pages-routing.module'
     EventComponent,
     EventsComponent,
     HomeComponent,
+    PrivacyComponent,
+    TermsComponent,
   ],
   imports: [SharedModule, PagesRoutingModule],
 })

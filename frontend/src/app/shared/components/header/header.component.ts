@@ -1,6 +1,8 @@
+import { SocialAuthService } from '@abacritt/angularx-social-login'
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { Component } from '@angular/core'
+import { ChangeDetectorRef, Component } from '@angular/core'
 import { AuthGuard } from '../../guards/auth.guard'
+import { ViewportService } from '../../services/viewport.service'
 import { POPIN } from '../../ui/animations'
 
 @Component({
@@ -47,5 +49,22 @@ import { POPIN } from '../../ui/animations'
 })
 export class HeaderComponent {
   hovering: boolean = false
-  constructor(public auth: AuthGuard) {}
+  mobile: boolean = false
+
+  constructor(
+    public auth: AuthGuard,
+    private oauth: SocialAuthService,
+    private viewport: ViewportService,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.oauth.authState.subscribe(async (user) => {
+      if (user?.id) await this.auth.google(user)
+    })
+
+    viewport.viewPortChanges.subscribe(() => {
+      this.mobile = this.viewport.width <= 600
+      console.log('here', this.mobile)
+      this.cdr.detectChanges()
+    })
+  }
 }
