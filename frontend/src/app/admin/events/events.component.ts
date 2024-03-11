@@ -167,7 +167,10 @@ export class EventsComponent {
 
   async deleteEvent(event: Event) {
     this.data.delete(`events/${event._id}`).then(() => {
-      this.events.splice(this.events.indexOf(event), 1)
+      if (this.events.indexOf(event) >= 0)
+        this.events.splice(this.events.indexOf(event), 1)
+      if (this.past.indexOf(event) >= 0)
+        this.past.splice(this.past.indexOf(event), 1)
       delete this._selectedFiles[event._id.toString()]
     })
   }

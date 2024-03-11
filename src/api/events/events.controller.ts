@@ -42,8 +42,9 @@ export class EventsController {
     date.setHours(0, 0, 0, 0)
     let today = new Date()
     today.setHours(0, 0, 0, 0)
-    if (date.getTime() < today.getTime())
-      throw new BAD_REQUEST(`You cannot delete past events...`)
+    //TODO uncomment after testing
+    //if (date.getTime() < today.getTime())
+    //throw new BAD_REQUEST(`You cannot delete past events...`)
 
     await event.deleteOne()
   }
