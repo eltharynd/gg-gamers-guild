@@ -39,10 +39,10 @@ export class EventComponent implements OnInit {
 
     for (let r of event.rounds) {
       let parties = []
-      let p = parseInt((Math.random() * 3).toFixed(0)) + 1
+      let p = parseInt(Math.floor(Math.random() * 4).toFixed(0)) + 1
       for (let i = 0; i < p; i++) {
         let partners: Adventurer[] = []
-        let a = parseInt((Math.random() * 2).toFixed(0))
+        let a = parseInt(Math.floor(Math.random() * 2).toFixed(0))
         for (let i = 0; i < a; i++)
           partners.push({ name: `Follower${this.id++}` })
         parties.push({
@@ -63,7 +63,7 @@ export class EventComponent implements OnInit {
   //TODO remove after testing
   add(round: AssignedRound) {
     let partners: Adventurer[] = []
-    let a = parseInt((Math.random() * 2).toFixed(0))
+    let a = parseInt(Math.floor(Math.random() * 2).toFixed(0))
     for (let i = 0; i < a; i++) partners.push({ name: `Follower${this.id++}` })
     round.parties.push({
       leader: { name: `Leader${this.id++}` },

@@ -76,6 +76,7 @@ export class EventsComponent {
         Validators.required,
         Validators.min(1),
       ]),
+      hasDM: new FormControl(false),
     })
   }
 

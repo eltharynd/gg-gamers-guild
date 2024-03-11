@@ -65,8 +65,6 @@ export class TableComponent implements OnChanges {
   TABLE_HEIGHT: number = this.TABLE_WIDTH
 
   ngOnChanges() {
-    //TODO remove (testing)
-    this.table.hasDM = true
     this.seats = []
     this.extraSeats = []
 

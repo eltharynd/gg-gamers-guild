@@ -45,6 +45,10 @@ const tableSchema: Schema<Table> = new Schema({
     type: Number,
     required: true,
   },
+  hasDM: {
+    type: Boolean,
+    required: true,
+  },
 })
 export interface TableModel extends Omit<Table, '_id'>, Document {}
 

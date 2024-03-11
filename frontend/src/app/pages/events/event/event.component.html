@@ -33,7 +33,7 @@
 <mat-card *ngFor="let round of event?.rounds; let r = index" class="round">
   <mat-card-header>
     <mat-card-title>
-      Tavoli del {{ r + 1 }}° Round
+      {{ round.start }} - {{ round.end }}
       <button
         *ngIf="auth?.authenticatedUser?.admin"
         mat-raised-button
@@ -44,7 +44,6 @@
         ADD
       </button>
     </mat-card-title>
-    <mat-card-subtitle>{{ round.start }} - {{ round.end }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <app-table
