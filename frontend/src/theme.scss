@@ -64,3 +64,24 @@ body {
 *::-webkit-scrollbar {
   display: none;
 }
+
+//CUSTOM THEMEING
+
+.mat-expansion-panel,
+.mat-mdc-card {
+  background-color: var(--gg-cyan) !important;
+  box-shadow: var(--gg-box-shadow) !important;
+
+  .mat-expansion-indicator,
+  .mat-expansion-panel-header-title,
+  .mat-mdc-card-title {
+    color: var(--gg-purple) !important;
+  }
+  .mat-mdc-card-subtitle {
+    color: color-mix(in srgb, var(--gg-purple) 60%, transparent);
+  }
+}
+
+.mat-mdc-text-field-wrapper {
+  background-color: var(--gg-background) !important;
+}

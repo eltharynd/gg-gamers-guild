@@ -154,4 +154,8 @@ $gg-yellow: (
   --gg-drop-shadow-smaller: drop-shadow(1px 1px 3px #3d078d80);
   --gg-drop-shadow-small: drop-shadow(1px 1px 4px #3d078dc0);
   --gg-drop-shadow: drop-shadow(1px 1px 8px #3d078d);
+
+  --gg-box-shadow: 0px 2px 1px -1px color-mix(in srgb, var(--gg-purple) 20%, transparent),
+    0px 1px 1px 0px color-mix(in srgb, var(--gg-purple) 14%, transparent),
+    0px 1px 3px 0px color-mix(in srgb, var(--gg-purple) 12%, transparent);
 }
