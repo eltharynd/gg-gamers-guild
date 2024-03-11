@@ -1,7 +1,8 @@
 # GG Gamer's Guild - Booking website
 
-This repo contains a boilerplate backend with Nodejs and Express in Typescript.
-It is currently intended for development/staging only.
+This repo contains the GG Gamer's Guild web app, which you can find live [here](https://gg.eltharynd.com/)!
+
+Written with Nodejs and Express in Typescript.
 
 ## Setting up the development environment
 
