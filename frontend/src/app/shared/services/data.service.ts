@@ -50,7 +50,7 @@ export class DataService {
         .catch((e: AxiosError) => {
           console.error(e)
           this.busy = false
-          reject()
+          reject(e)
         })
     })
   }

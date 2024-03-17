@@ -27,6 +27,8 @@ export class FormControlErrorsPipe implements PipeTransform {
       return `Devi ancora inserire dei campi`
     } else if (formControl.errors['notInFuture']) {
       return `La data deve essere nel futuro`
+    } else if (formControl.errors['usernameExists']) {
+      return `Questo username è già in uso`
     } else {
       return 'Campo non valido'
     }

@@ -46,18 +46,6 @@ export const app: express.Express = createExpressServer({
 
 app.set('trust proxy', true)
 
-/* app.use(
-  `${environment.API_BASE}docs`,
-  swaggerUIExpress.serve,
-  swaggerUIExpress.setup(SWAGGER_SPECS, {
-    customCss:
-      fs
-        .readFileSync(path.join(process.cwd(), 'docs/theme-flattop.css'))
-        .toString() +
-      fs.readFileSync(path.join(process.cwd(), 'docs/custom.css')).toString(),
-  })
-) */
-
 app.use('*', (req, res, next) => {
   if (/^\/api/g.test(req.originalUrl)) return next()
 

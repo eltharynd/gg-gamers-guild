@@ -16,4 +16,7 @@ export default {
   MONGO_PASSWORD: process.env.MONGO_PASSWORD || 'averysecurepassword',
 
   JWT_SECRET: process.env.JWT_SECRET || 'asamplejwtsecret',
+
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || 'asamplegoogleclientid',
+  GOOGLE_SECRET: process.env.GOOGLE_SECRET || 'asamplegooglesecret',
 }

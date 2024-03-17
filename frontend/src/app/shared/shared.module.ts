@@ -14,6 +14,7 @@ import { HeaderComponent } from './components/header/header.component'
 import { LayoutComponent } from './components/layout/layout.component'
 import { NotFoundComponent } from './components/not-found/not-found.component'
 import { TableComponent } from './components/table/table.component'
+import { UsernameDialogComponent } from './components/username-dialog/username-dialog.component'
 import { ToFormArrayPipe } from './pipes/formarray.pipe'
 import { FormControlErrorsPipe } from './pipes/formcontrol-error.pipe'
 import { ToFormGroupPipe } from './pipes/formgroup.pipe'
@@ -36,6 +37,7 @@ const declarations: any[] = [
   LayoutComponent,
   NotFoundComponent,
   TableComponent,
+  UsernameDialogComponent,
 ]
 
 const providers: any[] = [

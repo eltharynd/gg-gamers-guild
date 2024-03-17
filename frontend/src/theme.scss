@@ -85,3 +85,9 @@ body {
 .mat-mdc-text-field-wrapper {
   background-color: var(--gg-background) !important;
 }
+
+@media (max-width: 600px) {
+  .cdk-overlay-pane.mat-mdc-dialog-panel {
+    max-width: calc(100vw - 0.5rem) !important;
+  }
+}

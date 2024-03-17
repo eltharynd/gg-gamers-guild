@@ -143,3 +143,11 @@ mat-expansion-panel
   justify-content: center;
   align-items: center;
 }
+
+.disabled {
+  pointer-events: none !important;
+  & * {
+    pointer-events: none !important;
+  }
+  opacity: 0.7 !important;
+}

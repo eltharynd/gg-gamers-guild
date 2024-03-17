@@ -9,7 +9,7 @@ import {
 } from '@angular/router'
 import { AuthpalClient, UserChangesEmitter } from 'authpal-client'
 import axios from 'axios'
-import { GoogleUser, PublicUser } from 'gg-gamers-guild-interfaces'
+import { GoogleUser, PublicUser, User } from 'gg-gamers-guild-interfaces'
 import { Observable, Subject } from 'rxjs'
 import { environment } from '../../../environments/environment'
 
@@ -17,11 +17,11 @@ import { environment } from '../../../environments/environment'
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivateChild {
-  busy: boolean = false
+  busy: boolean
 
   private authPalClient: AuthpalClient
 
-  authenticatedUser: PublicUser
+  authenticatedUser: User
   authenticatedUserChanges: Subject<{ user: PublicUser; loggedIn: boolean }> =
     new Subject()
 
@@ -166,7 +166,7 @@ export class AuthGuard implements CanActivateChild {
       })
   }
 
-  private async me() {
+  async me() {
     return new Promise((resolve, _reject) => {
       axios({
         method: 'get',

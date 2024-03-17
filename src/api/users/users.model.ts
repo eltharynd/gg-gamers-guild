@@ -6,6 +6,7 @@ import {
   User,
 } from 'gg-gamers-guild-interfaces'
 import mongoose, { Document, Schema } from 'mongoose'
+import { v4 } from 'uuid'
 import { Sessions } from '../sessions/sessions.model'
 
 const settingsSchema: Schema<Settings> = new Schema(
@@ -51,6 +52,9 @@ const schema: Schema = new Schema(
 
     username: {
       type: String,
+      unique: true,
+      required: true,
+      default: v4,
     },
 
     firstName: {

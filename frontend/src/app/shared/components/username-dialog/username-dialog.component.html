@@ -1,0 +1,41 @@
+<div class="container">
+  <h3>Non hai ancora scelto un nome utente</h3>
+  <p>
+    GG Gamer's Guild non mostrerà mai la tua email o il tuo nome.<br />
+    <br />
+    Devi quindi scegliere uno username.
+    <br />
+    <br />
+    Questo sara visibile pubblicamente e potrà essere cercato dagli altri utenti
+    per:
+  </p>
+  <ul>
+    <li>aggiungerti ai loro amici</li>
+    <li>iscrviverti ad un evento insieme a loro</li>
+  </ul>
+
+  <div><br /></div>
+
+  <form
+    [formGroup]="formGroup"
+    (ngSubmit)="save()"
+    [class.disabled]="data.busy || auth.busy"
+  >
+    <mat-form-field>
+      <mat-label>username</mat-label>
+      <input matInput type="text" formControlName="username" />
+      <mat-error> {{ formGroup.get('username') | formControlError }}</mat-error>
+    </mat-form-field>
+    <div class="row end">
+      <button
+        mat-raised-button
+        type="submit"
+        class="end"
+        color="primary"
+        [disabled]="data.busy || auth.busy"
+      >
+        SALVA
+      </button>
+    </div>
+  </form>
+</div>

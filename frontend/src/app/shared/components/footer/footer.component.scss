@@ -43,7 +43,7 @@ footer {
     }
   }
 
-  @media screen and (max-width: 500px) {
+  @media (max-width: 500px) {
     padding: 2rem 1rem;
     gap: 2rem;
     justify-content: center;
@@ -67,7 +67,7 @@ footer {
     }
   }
 
-  @media screen and (max-width: 400px) {
+  @media (max-width: 400px) {
     padding: 2rem 0.5rem;
     gap: 1rem;
     .links {

@@ -1,9 +1,11 @@
 import { SocialAuthService } from '@abacritt/angularx-social-login'
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { ChangeDetectorRef, Component } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { AuthGuard } from '../../guards/auth.guard'
 import { ViewportService } from '../../services/viewport.service'
 import { POPIN } from '../../ui/animations'
+import { UsernameDialogComponent } from '../username-dialog/username-dialog.component'
 
 @Component({
   selector: 'app-header',
@@ -55,10 +57,24 @@ export class HeaderComponent {
     public auth: AuthGuard,
     private oauth: SocialAuthService,
     private viewport: ViewportService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    public dialog: MatDialog
   ) {
     this.oauth.authState.subscribe(async (user) => {
       if (user?.id) await this.auth.google(user)
+    })
+
+    this.auth.authenticatedUserChanges.subscribe(({ loggedIn, user }) => {
+      if (
+        loggedIn &&
+        /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(
+          user.username
+        )
+      ) {
+        this.dialog.open(UsernameDialogComponent, {
+          data: { username: user.username },
+        })
+      }
     })
 
     viewport.viewPortChanges.subscribe(() => {

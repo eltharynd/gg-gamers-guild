@@ -24,20 +24,25 @@ export class SettingsPatchRequest implements Partial<Settings> {
 export class UserPatchRequest implements Partial<User> {
   @IsOptional()
   @IsEmail()
-  email: string
+  email?: string
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  firstName: string
+  username?: string
 
   @IsOptional()
   @IsNotEmpty()
-  lastName: string
+  @IsString()
+  firstName?: string
+
+  @IsOptional()
+  @IsNotEmpty()
+  lastName?: string
 
   @IsOptional()
   @IsBoolean()
-  admin: boolean
+  admin?: boolean
 }
 
 export class UserPostRequest implements Partial<User> {
@@ -47,11 +52,18 @@ export class UserPostRequest implements Partial<User> {
   @Length(8)
   password: string
 
-  @IsNotEmpty()
   @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  username: string
+
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
   firstName: string
 
-  @IsNotEmpty()
   @IsOptional()
+  @IsNotEmpty()
+  @IsString()
   lastName: string
 }

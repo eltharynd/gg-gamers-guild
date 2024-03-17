@@ -5,6 +5,7 @@ import {
   AuthLoginRequest,
   AuthSignupRequest,
 } from 'gg-gamers-guild-interfaces/requests'
+import { OAuth2Client } from 'google-auth-library'
 import {
   Body,
   CookieParam,
@@ -181,6 +182,8 @@ export class AuthController {
     })
   }
 
+  googleOAuth2Client = new OAuth2Client(environment.GOOGLE_CLIENT_ID)
+
   @Post(`/google`)
   async google(
     @Req() req: Request,
@@ -193,25 +196,34 @@ export class AuthController {
     req.cookies = { refresh_token: cookies }
     body = req.body
 
-    console.log(body)
+    let ticket = await this.googleOAuth2Client.verifyIdToken({
+      idToken: req.body.idToken,
+    })
+    let payload = ticket.getPayload()
+    if (payload.email !== body.email)
+      throw new FORBIDDEN(
+        `The payload you provided does not match the verified token`
+      )
 
-    let user = await Users.findOne({ 'google.email': body.email })
-    if (!user) user = await Users.findOne({ 'google.id': body.id })
-    if (!user) user = await Users.findOne({ email: body.email })
+    let user = await Users.findOne({ 'google.email': payload.email })
+    if (!user) user = await Users.findOne({ 'google.id': payload.sub })
+    if (!user) user = await Users.findOne({ email: payload.email })
 
     req.body.password = environment.JWT_SECRET
     if (user) {
-      if (!user.firstName) user.firstName = body.firstName
-      if (!user.lastName) user.lastName = body.lastName
+      if (!user.username) user.username = v4()
+      if (!user.firstName) user.firstName = payload.given_name
+      if (!user.lastName) user.lastName = payload.family_name
       await user.set('google', body)
       await user.save()
     } else {
       req.body.password = v4()
       user = await Users.create({
-        email: body.email,
+        email: payload.email,
         password: req.body.password,
-        firstName: body.firstName,
-        lastName: body.lastName,
+        username: v4(),
+        firstName: payload.given_name,
+        lastName: payload.family_name,
         google: body,
       })
       await user.save()
