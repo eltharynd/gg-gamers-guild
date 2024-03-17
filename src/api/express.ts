@@ -7,6 +7,7 @@ import environment from '../environment'
 import { MongoInterceptor } from '../mongo'
 import Logger from '../util/logger'
 import { AuthController } from './auth/auth.controller'
+import { BookingsController } from './bookings/bookings.controller'
 import { EventsController } from './events/events.controller'
 import { DefaultInterceptor } from './interceptors/default.interceptor'
 import { HttpErrorHandler } from './middlewares/error.middleware'
@@ -33,6 +34,7 @@ export const app: express.Express = createExpressServer({
   middlewares: [LoggerMiddleware, HttpErrorHandler],
   controllers: [
     AuthController,
+    BookingsController,
     EventsController,
     UploadsController,
     UsersController,

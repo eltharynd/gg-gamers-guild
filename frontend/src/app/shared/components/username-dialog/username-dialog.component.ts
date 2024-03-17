@@ -40,14 +40,10 @@ export class UsernameDialogComponent {
     ]),
   })
 
-  onClick() {
-    this.dialogRef.close()
-  }
-
   alreadyExists: boolean
   save() {
     if (!this.auth.authenticatedUser) return this.dialogRef.close()
-    if (!this.formGroup.valid || this.data.busy) return
+    if (!this.formGroup.valid || this.data.busy || this.auth.busy) return
 
     this.alreadyExists = false
     let username = this.formGroup.controls.username.value

@@ -142,6 +142,8 @@ $gg-yellow: (
 :root {
   --gg-cyan: #{map.get($gg-cyan, 200)};
   --gg-purple: #{map.get($gg-purple, 900)};
+  --gg-purple-light: #{map.get($gg-purple, 700)};
+  --gg-purple-lighter: #{map.get($gg-purple, 500)};
   --gg-pink: #{map.get($gg-pink, 200)};
   --gg-yellow: #{map.get($gg-yellow, 200)};
 
@@ -158,4 +160,8 @@ $gg-yellow: (
   --gg-box-shadow: 0px 2px 1px -1px color-mix(in srgb, var(--gg-purple) 20%, transparent),
     0px 1px 1px 0px color-mix(in srgb, var(--gg-purple) 14%, transparent),
     0px 1px 3px 0px color-mix(in srgb, var(--gg-purple) 12%, transparent);
+
+  --theme-error: #{map.get($gg-pink, 900)};
+  --theme-autocomplete-override-background: #{map.get($gg-yellow, 100)};
+  --theme-autocomplete-override-text: #{map.get($gg-yellow, 900)};
 }

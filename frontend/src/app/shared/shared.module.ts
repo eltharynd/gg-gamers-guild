@@ -9,12 +9,15 @@ import { HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
+import { BookDialogComponent } from './components/book-dialog/book-dialog.component'
+import { ExpandableHintComponent } from './components/expandable-hint/expandable-hint.component'
 import { FooterComponent } from './components/footer/footer.component'
 import { HeaderComponent } from './components/header/header.component'
 import { LayoutComponent } from './components/layout/layout.component'
 import { NotFoundComponent } from './components/not-found/not-found.component'
 import { TableComponent } from './components/table/table.component'
 import { UsernameDialogComponent } from './components/username-dialog/username-dialog.component'
+import { AdventurerPipe } from './pipes/adventurer.pipe'
 import { ToFormArrayPipe } from './pipes/formarray.pipe'
 import { FormControlErrorsPipe } from './pipes/formcontrol-error.pipe'
 import { ToFormGroupPipe } from './pipes/formgroup.pipe'
@@ -32,6 +35,8 @@ const imports: any[] = [
 ]
 
 const declarations: any[] = [
+  BookDialogComponent,
+  ExpandableHintComponent,
   FooterComponent,
   HeaderComponent,
   LayoutComponent,
@@ -41,6 +46,7 @@ const declarations: any[] = [
 ]
 
 const providers: any[] = [
+  AdventurerPipe,
   FormControlErrorsPipe,
   HumanIndexPipe,
   TablePartiesPipe,

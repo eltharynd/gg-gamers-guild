@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
+import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute } from '@angular/router'
 import {
   Adventurer,
@@ -6,6 +7,7 @@ import {
   AssignedRound,
 } from 'gg-gamers-guild-interfaces'
 import { environment } from '../../../../environments/environment'
+import { BookDialogComponent } from '../../../shared/components/book-dialog/book-dialog.component'
 import { AuthGuard } from '../../../shared/guards/auth.guard'
 import { DataService } from '../../../shared/services/data.service'
 
@@ -23,7 +25,8 @@ export class EventComponent implements OnInit {
     private data: DataService,
     public auth: AuthGuard,
     private cdr: ChangeDetectorRef,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public dialog: MatDialog
   ) {}
 
   id = 0
@@ -37,7 +40,7 @@ export class EventComponent implements OnInit {
 
     //MOCK DATA///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    for (let r of event.rounds) {
+    /*     for (let r of event.rounds) {
       let parties = []
       let p = parseInt(Math.floor(Math.random() * 4).toFixed(0)) + 1
       for (let i = 0; i < p; i++) {
@@ -52,7 +55,7 @@ export class EventComponent implements OnInit {
         })
       }
       r.parties = parties
-    }
+    } */
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     for (let round of event.rounds) this.sortParties(round)
@@ -71,11 +74,22 @@ export class EventComponent implements OnInit {
       registered: new Date(),
     })
     this.sortParties(round)
-    let event = this.event
-    this.event = null
-    this.cdr.detectChanges()
+  }
 
-    this.event = event
+  book(round: AssignedRound) {
+    //TODO check auth
+    this.dialog
+      .open(BookDialogComponent, {
+        data: { event: this.event, round },
+      })
+      .afterClosed()
+      .subscribe((data) => {
+        console.log(data)
+        if (data?.leader) {
+          round.parties.push({ ...data, registered: new Date() })
+          this.sortParties(round)
+        }
+      })
   }
 
   sortParties(round: AssignedRound) {
@@ -127,5 +141,14 @@ export class EventComponent implements OnInit {
     /*     while(available.length>0) {
 
     } */
+    this.refreshView()
+  }
+
+  refreshView() {
+    let event = this.event
+    this.event = null
+    this.cdr.detectChanges()
+
+    this.event = event
   }
 }

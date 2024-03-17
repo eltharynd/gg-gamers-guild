@@ -1,0 +1,15 @@
+<div
+  class="container"
+  [class.expanded]="expanded"
+  (click)="expanded = !expanded"
+>
+  <div class="header">
+    <div class="title">{{ title }}</div>
+    <mat-icon class="arrow" [inline]="true" [class.expanded]="expanded">
+      expand_more
+    </mat-icon>
+  </div>
+  <div class="content" [@expansion]="expanded">
+    <span [innerText]="content"> </span>
+  </div>
+</div>

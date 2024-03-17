@@ -41,7 +41,16 @@
         style="margin-left: 2rem"
         (click)="add(round)"
       >
-        ADD
+        TEST
+      </button>
+      <button
+        *ngIf="auth?.authenticatedUser"
+        mat-raised-button
+        color="primary"
+        style="margin-left: 2rem"
+        (click)="book(round)"
+      >
+        ISCRIVITI
       </button>
     </mat-card-title>
   </mat-card-header>

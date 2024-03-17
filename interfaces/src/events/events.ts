@@ -1,6 +1,7 @@
 import {
   IsArray,
   IsBoolean,
+  IsEmail,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -13,9 +14,20 @@ import mongoose from 'mongoose'
 import 'reflect-metadata'
 
 export class Adventurer {
-  @IsString()
+  @IsOptional()
   @IsNotEmpty()
-  name: string
+  @IsString()
+  user?: mongoose.Types.ObjectId | string
+
+  @IsOptional()
+  @IsNotEmpty()
+  @IsString()
+  name?: string
+
+  @IsOptional()
+  @IsNotEmpty()
+  @IsEmail()
+  email?: string
 }
 
 export class Party {
@@ -29,7 +41,7 @@ export class Party {
   // @Type(() => Adventurer)
   partners: Adventurer[]
 
-  registered: Date
+  registered?: Date
 }
 
 export class Table {

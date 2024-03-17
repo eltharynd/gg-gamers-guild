@@ -24,7 +24,7 @@
     <ng-container *ngFor="let party of table.parties; let p = index">
       <div
         class="player centered"
-        [matTooltip]="party.leader.name"
+        [matTooltip]="party.leader | adventurer"
         [ngStyle]="computeCoordinates($any(party.leader).coordinates)"
         [style.background-color]="playerColors(p).bg"
         [style.border-color]="playerColors(p).border"
@@ -35,7 +35,7 @@
       <div
         class="player centered"
         *ngFor="let player of party.partners"
-        [matTooltip]="player.name"
+        [matTooltip]="player | adventurer"
         [ngStyle]="computeCoordinates($any(player).coordinates)"
         [style.background-color]="playerColors(p).bg"
         [style.border-color]="playerColors(p).border"

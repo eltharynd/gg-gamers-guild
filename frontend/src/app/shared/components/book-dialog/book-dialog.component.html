@@ -1,0 +1,96 @@
+<div class="container">
+  <h3>Iscrizione a</h3>
+  <h4>
+    {{ dialogData.event.title }}
+    <br />
+    {{ dialogData.round.start }} - {{ dialogData.round.end }}
+  </h4>
+
+  <p>
+    Verrai assegnatə automaticamente ad un tavolo distribuendo al meglio i
+    giocatori.
+  </p>
+
+  <div><br /></div>
+
+  <div class="party">
+    <div class="text">Il tuo party:</div>
+    <ng-container
+      *ngIf="party?.leader"
+      [ngTemplateOutlet]="adventurerCard"
+      [ngTemplateOutletContext]="{ adventurer: party.leader, leader: true }"
+    ></ng-container>
+    <ng-container
+      *ngFor="let adventurer of party.partners"
+      [ngTemplateOutlet]="adventurerCard"
+      [ngTemplateOutletContext]="{ adventurer }"
+    ></ng-container>
+
+    <div class="adder">
+      <div class="text">Vuoi giocare insieme ad un amicə?</div>
+      <mat-form-field appearance="outline" [class.disabled]="_selected">
+        <mat-label>Cerca qualcuno</mat-label>
+        <input
+          type="text"
+          placeholder="Username o email"
+          matInput
+          [formControl]="search"
+          [matAutocomplete]="auto"
+        />
+      </mat-form-field>
+
+      <app-expandable-hint
+        *ngIf="_selected && !_selected.user"
+        class="guest"
+        title="Stai invitando un ospite"
+        [content]="guestMessage"
+      >
+      </app-expandable-hint>
+      <div class="row">
+        <button
+          *ngIf="_selected && !_selected.user"
+          mat-raised-button
+          color="accent"
+          (click)="guestCancel()"
+        >
+          CANCELLA
+        </button>
+        <button
+          *ngIf="_selected && !_selected.user"
+          mat-raised-button
+          color="warn"
+          (click)="guestConfirm()"
+        >
+          CONFERMA
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <button
+    mat-raised-button
+    color="primary"
+    class="confirmation"
+    [class.disabled]="_selected"
+    (click)="save()"
+  >
+    RISERVA
+  </button>
+</div>
+
+<ng-template #adventurerCard let-adventurer="adventurer" let-leader="leader">
+  <div class="adventurer" [class.leader]="leader">
+    {{ adventurer | adventurer }} {{ leader ? '(tu)' : '' }}
+  </div>
+</ng-template>
+
+<mat-autocomplete #auto="matAutocomplete">
+  @for (adventurer of available; track adventurer) {
+  <mat-option
+    [value]="adventurer.name"
+    (onSelectionChange)="onSelection(adventurer)"
+    [class.override-autocomplete]="!adventurer.user"
+    >{{ adventurer | adventurer }}</mat-option
+  >
+  }
+</mat-autocomplete>

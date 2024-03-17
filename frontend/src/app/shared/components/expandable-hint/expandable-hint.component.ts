@@ -6,18 +6,13 @@ import {
   transition,
   trigger,
 } from '@angular/animations'
-import { Component, OnInit } from '@angular/core'
-import { AssignedEvent } from 'gg-gamers-guild-interfaces'
-import { environment } from '../../../environments/environment'
-import { DataService } from '../../shared/services/data.service'
-import { POPIN } from '../../shared/ui/animations'
+import { Component, Input } from '@angular/core'
 
 @Component({
-  selector: 'app-events',
-  templateUrl: './events.component.html',
-  styleUrl: './events.component.scss',
+  selector: 'app-expandable-hint',
+  templateUrl: './expandable-hint.component.html',
+  styleUrl: './expandable-hint.component.scss',
   animations: [
-    POPIN,
     trigger('expansion', [
       state('true', style({ opacity: 1, 'max-height': '36rem' })),
       state('false', style({ opacity: 0, 'max-height': 0 })),
@@ -46,22 +41,10 @@ import { POPIN } from '../../shared/ui/animations'
     ]),
   ],
 })
-export class EventsComponent implements OnInit {
-  events: AssignedEvent[]
+export class ExpandableHintComponent {
+  @Input('title') title: string
+  @Input('content') content: string
+  @Input('innerHTML') innerHTML: string
 
-  pictureURL = `${environment.API_BASE_URL}uploads/`
-
-  constructor(private data: DataService) {}
-
-  async ngOnInit() {
-    let events: AssignedEvent[] = await this.data.get(`events`)
-    let today = new Date()
-    today.setHours(0, 0, 0, 0)
-    for (let e of events) {
-      if (new Date(e.date).getTime() >= today.getTime()) {
-        ;(e as any).expanded = true
-      }
-    }
-    this.events = events
-  }
+  @Input('expanded') expanded: boolean = false
 }
